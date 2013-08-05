@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CookBook</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+   	<string-array name="kategorien">
+        <item>Alle Kategorien</item>
+        <item>Essen</item>
+        <item>Getränke</item>
+        <item>kaltes Buffet</item>
+        <item>Vegetarisch</item>
+        <item>Torten</item>
+        <item>Suppen und Eintoepfe</item>
+        <item>Sonstige</item>
+        <item>Snacks</item>
+        <item>Schweinefleisch</item>
+        <item>Salate</item>
+        <item>Rindfleisch</item>
+        <item>Pizza und Co.</item>
+        <item>Nudeln und Pasta</item>
+        <item>Kekse</item>
+        <item>Kartoffelsalat</item>
+        <item>Hackfleisch</item>
+        <item>Gemuese</item>
+        <item>Gefluegel</item>
+        <item>Fleisch</item>
+        <item>Fisch</item>
+        <item>Eierspeisen</item>
+        <item>Dips</item>
+        <item>Desserts</item>
+        <item>Cocktails</item>
+        <item>Brot</item>
+        <item>Backen</item>
+        <item>Auflauf</item>
+    </string-array>
+    
+   	<string-array name="einheiten">
+        <item>kg</item>
+        <item>g</item>
+        <item>ml</item>
+        <item>L</item>
+        <item>Stück</item>
+        <item>Dose</item>
+    </string-array>
+
+</resources>

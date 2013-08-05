@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android1:id="@+id/editText1"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignParentLeft="true"
+        android1:layout_alignParentRight="true"
+        android1:layout_alignParentTop="true"
+        android1:ems="10" >
+
+        <requestFocus />
+    </EditText>
+    
+     <LinearLayout android:id="@+id/footerlayout"
+        android:layout_marginTop="3dip"
+        android:layout_height="45dip"
+        android:orientation="horizontal" 
+        android:layout_width="fill_parent" 
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+        
+        <Button
+            android:id="@+id/zutatLoeschen" 
+            android:text="Zutat löschen" 
+            android:layout_width="0dip"
+            android:layout_height="60dip"
+            android:layout_weight="1">
+        </Button>   
+        <Button
+            android:id="@+id/neueDatenbank" 
+            android:text="Datenbank verknüpfen"
+            android:layout_width="0dip"
+            android:layout_height="60dip"
+            android:layout_weight="1"
+            >
+        </Button>   
+    </LinearLayout>
+
+     <ListView
+         android1:id="@+id/datenbankListe"
+         android1:layout_width="match_parent"
+         android1:layout_height="wrap_content"
+         android1:layout_above="@+id/footerlayout"
+         android1:layout_alignParentLeft="true"
+         android1:layout_below="@+id/editText1" >
+
+     </ListView>
+
+</RelativeLayout>

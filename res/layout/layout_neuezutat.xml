@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical" >
+
+    <AutoCompleteTextView
+        android1:id="@+id/zutat"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignParentLeft="true"
+        android1:layout_centerVertical="true"
+        android1:layout_marginBottom="10dp"
+        android:imeOptions="actionNext"
+		android:lines="1"
+		android:singleLine="true"
+        android:ems="10"
+        android:hint="Artikelname">
+
+        <requestFocus />
+    </AutoCompleteTextView>
+
+    <Button
+        android1:id="@+id/zutatHinzufuegenButton"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignParentBottom="true"
+        android1:layout_alignParentLeft="true"
+        android1:layout_alignParentRight="true"
+        android1:text="Zutat hinzufügen" />
+
+    <ImageView
+        android1:id="@+id/imageView1"
+        android1:layout_width="100dp"
+        android1:layout_height="100dp"
+        android1:layout_below="@+id/textView1"
+        android1:layout_centerHorizontal="true"
+        android1:layout_marginBottom="35dp"
+        android1:src="@drawable/ic_launcher" />
+
+    <TextView
+        android1:id="@+id/textView1"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignParentTop="true"
+        android1:layout_centerHorizontal="true"
+        android1:layout_marginBottom="35dp"
+        android1:layout_marginTop="25dp"
+        android1:text="Zutat hinzufügen"
+        android1:textAppearance="?android:attr/textAppearanceLarge"
+        android1:textSize="30dp" />
+
+    <EditText
+        android1:id="@+id/einheit"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignLeft="@+id/imageView1"
+        android1:layout_alignRight="@+id/zutat"
+        android1:layout_below="@+id/zutat"
+        android1:ems="10"
+        android1:inputType="numberDecimal" />
+
+    <Spinner
+        android1:id="@+id/spinner2"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignBottom="@+id/einheit"
+        android1:layout_alignParentRight="true"
+        android1:layout_below="@+id/zutat"
+        android:entries="@array/einheiten"
+        android1:layout_toRightOf="@+id/einheit" />
+
+    <Button
+        android1:id="@+id/scanButton"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignBottom="@+id/zutat"
+        android1:layout_alignLeft="@+id/spinner2"
+        android1:layout_alignParentRight="true"
+        android1:layout_alignTop="@+id/zutat"
+        android1:text="Scan" />
+
+    <ProgressBar
+        android1:id="@+id/progressBar1"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignBottom="@+id/zutat"
+        android1:layout_centerHorizontal="true"
+        android1:layout_marginBottom="30dp" />
+
+</RelativeLayout>

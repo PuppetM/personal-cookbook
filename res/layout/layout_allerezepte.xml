@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android1:id="@+id/rezepteSuche"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignParentLeft="true"
+        android1:layout_alignParentRight="true"
+        android1:layout_alignParentTop="true"
+        android1:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Spinner
+        android1:id="@+id/spinner"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignParentBottom="true"
+        android1:layout_alignParentLeft="true" />
+
+    <ListView
+        android1:id="@+id/rezepteListe"
+        android1:layout_width="match_parent"
+        android1:layout_height="wrap_content"
+        android1:layout_above="@+id/spinner"
+        android1:layout_alignParentLeft="true"
+        android1:layout_below="@+id/rezepteSuche" >
+
+    </ListView>
+
+</RelativeLayout>
