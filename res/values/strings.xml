@@ -7,33 +7,15 @@
     
    	<string-array name="kategorien">
         <item>Alle Kategorien</item>
-        <item>Essen</item>
-        <item>Getränke</item>
-        <item>kaltes Buffet</item>
-        <item>Vegetarisch</item>
-        <item>Torten</item>
-        <item>Suppen und Eintoepfe</item>
-        <item>Sonstige</item>
-        <item>Snacks</item>
-        <item>Schweinefleisch</item>
-        <item>Salate</item>
-        <item>Rindfleisch</item>
-        <item>Pizza und Co.</item>
-        <item>Nudeln und Pasta</item>
-        <item>Kekse</item>
-        <item>Kartoffelsalat</item>
-        <item>Hackfleisch</item>
-        <item>Gemuese</item>
-        <item>Gefluegel</item>
         <item>Fleisch</item>
+        <item>Vegetarisch</item>
+        <item>Pasta</item>
         <item>Fisch</item>
-        <item>Eierspeisen</item>
-        <item>Dips</item>
-        <item>Desserts</item>
-        <item>Cocktails</item>
-        <item>Brot</item>
-        <item>Backen</item>
+        <item>Gefluegel</item>
+        <item>Salate</item>
         <item>Auflauf</item>
+        <item>Suppen und Eintoepfe</item>
+
     </string-array>
     
    	<string-array name="einheiten">

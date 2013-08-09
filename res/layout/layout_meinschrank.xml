@@ -42,7 +42,7 @@
     </LinearLayout>
 
      <ListView
-         android1:id="@+id/datenbankListe"
+         android1:id="@+id/lv_mein_schrank"
          android1:layout_width="match_parent"
          android1:layout_height="wrap_content"
          android1:layout_above="@+id/footerlayout"
