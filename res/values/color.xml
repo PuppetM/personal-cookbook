@@ -1,0 +1,20 @@
+<resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="walking_green">#94AD0B</color>
+    <color name="walking_green_pressed">#718408</color>
+    <color name="grey_05">#d1d1d1</color>
+     <color name="theme">#fff3f3f3</color>
+     <color name="theme_dark">#dddddd</color>
+     <color name="transparent">#80000000</color>
+     <!-- <color name="custom_button_pressed">#AD5809</color>
+     <color name="custom_button">#FA7F0C</color> 
+     <color name="custom_button">#F70C0C</color>
+     <color name="custom_button_pressed">#AB0808</color>
+     
+     <color name="custom_button">#C73335</color>
+     <color name="custom_button_pressed">#7A2021</color>-->
+
+		<color name="custom_button">#7A5E51</color>
+		 <color name="custom_button_pressed">#7A2021</color>
+</resources>

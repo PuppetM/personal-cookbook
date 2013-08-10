@@ -114,11 +114,7 @@ public class MeinSchrank extends Activity {
 		lv_mein_schrank.setAdapter(adapter);
 		bu_datenbank_verknüpfen = (Button) findViewById(R.id.neueDatenbank);
 		user = new ArrayList <String>();
-		user = getIntent().getExtras().getStringArrayList("user");
-
-		
-
-		
+		user = getIntent().getExtras().getStringArrayList("user");	
 	}
 
 	@Override

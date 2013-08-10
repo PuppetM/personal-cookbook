@@ -14,7 +14,7 @@
     android1:orientation="vertical" >
 
     <Spinner
-        android1:id="@+id/spinner"
+        android1:id="@+id/sp_allerezepte_spinner"
         android1:layout_width="fill_parent"
         android1:layout_height="wrap_content"
         android1:layout_marginBottom="5dp"

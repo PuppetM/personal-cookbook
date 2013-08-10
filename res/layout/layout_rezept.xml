@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android1:id="@+id/tv_rezept_name"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignParentTop="true"
+        android1:layout_centerHorizontal="true"
+        android1:layout_marginTop="27dp"
+        android1:text="Medium Text"
+        android1:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android1:id="@+id/iv_rezept_icon"
+        android1:layout_width="300dp"
+        android1:layout_height="150dp"
+        android1:layout_below="@+id/tv_rezept_name"
+        android1:layout_centerHorizontal="true"
+        android1:layout_marginTop="20dp"
+        android1:src="@drawable/ic_launcher" />
+
+    <ScrollView
+        android1:id="@+id/scrollView2"
+        android1:layout_width="match_parent"
+        android1:layout_height="match_parent"
+        android1:layout_alignParentLeft="true"
+        android1:layout_below="@+id/iv_rezept_icon"
+        android1:layout_marginTop="20dp" >
+
+        <LinearLayout
+            android1:layout_width="match_parent"
+            android1:layout_height="match_parent"
+            android1:layout_marginTop="14dp"
+            android1:orientation="vertical" >
+
+            <TextView
+                android1:id="@+id/tv_rezept_beschreibung"
+                android1:layout_width="match_parent"
+                android1:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android1:layout_marginBottom="10dp"
+                android1:layout_marginLeft="10dp"
+                android1:layout_marginRight="10dp"
+                android1:text="" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android1:id="@+id/pb_rezept"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_centerInParent="true" />
+
+</RelativeLayout>

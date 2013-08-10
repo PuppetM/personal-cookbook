@@ -111,11 +111,6 @@ public class Main extends Activity {
 			public ParseQuery<ParseObject> create() {	   
 				ParseQuery query = new ParseQuery("Gericht");				
 				if(cat.equals("Alle Kategorien")){					
-				}else if(cat.equals("Essen")){
-					String[] names = {"Cocktails"};
-					query.whereNotContainedIn("Kategorie", Arrays.asList(names));
-				}else if(cat.equals("Getränke")){
-					query.whereContains("Kategorie", "Cocktails");
 				}else{
 					query.whereContains("Kategorie", cat);
 				}				
@@ -140,7 +135,7 @@ public class Main extends Activity {
 		toNeueZutat = (Button) findViewById (R.id.toNeueZutat);
 		toAlleRezepte = (Button) findViewById (R.id.toAlleRezepte);
 		toMeinSchrank = (Button) findViewById (R.id.toMeinSchrank);
-		spinner = (Spinner) findViewById (R.id.spinner);
+		spinner = (Spinner) findViewById (R.id.sp_allerezepte_spinner);
 		
 		
 		//user = getIntent().getExtras().getStringArrayList("user");
