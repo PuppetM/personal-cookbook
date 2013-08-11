@@ -82,7 +82,8 @@ public class NeueZutat extends Activity {
 	ArrayList<String> zutaten_einheit;
 	ArrayList<Double> zutaten_menge;
 	
-	private ArrayList<String> user = new ArrayList <String>();
+	ParseUser cUser;
+	String currentUser;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class NeueZutat extends Activity {
 
 	private void getUserData(){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("UserData");
-		query.whereEqualTo("Username", user.get(0));
+		query.whereEqualTo("Username", currentUser);
 		query.orderByAscending("Zutat");
 		query.findInBackground(new FindCallback<ParseObject>() {
 		    public void done(List<ParseObject> scoreList, ParseException e) {
@@ -130,7 +131,7 @@ public class NeueZutat extends Activity {
 					}
 					if(vorhanden){
 						ParseQuery<ParseObject> query = ParseQuery.getQuery("UserData");
-						query.whereEqualTo("Username", user.get(0));
+						query.whereEqualTo("Username", currentUser);
 						query.findInBackground(new FindCallback<ParseObject>() {
 						    public void done(List<ParseObject> scoreList, ParseException e) {
 						        if (e == null) {
@@ -154,7 +155,7 @@ public class NeueZutat extends Activity {
 						ParseObject data = new ParseObject("UserData");
 						data.put("Masseinheit", spinner.getSelectedItem().toString());
 						data.put("Zutat", name.getText().toString());
-						data.put("Username", user.get(0));
+						data.put("Username", currentUser);
 						data.put("Menge", Double.parseDouble(einheit.getText().toString()));
 						data.saveInBackground();
 						
@@ -162,7 +163,6 @@ public class NeueZutat extends Activity {
 						toast.show();
 						
 						Intent i = new Intent(NeueZutat.this,Main.class);
-						i.putStringArrayListExtra("user", user);
 						startActivity(i);
 					}
 				}
@@ -240,7 +240,6 @@ public class NeueZutat extends Activity {
 		zutaten_name = new ArrayList<String>();
 		zutaten_einheit = new ArrayList<String>();
 		zutaten_menge = new ArrayList<Double>();
-		user = getIntent().getExtras().getStringArrayList("user");
 		
 	}
 	
@@ -265,6 +264,8 @@ public class NeueZutat extends Activity {
 		Parse.initialize(this, "PXJakVYimXSoEUbQvyiNRIB3LzCbP0FEqFOM7NZD", "ms0stwKSjkAcbhuBFs3LOt0Qmjt50UZ3buElHYGm");
 		ParseAnalytics.trackAppOpened(getIntent());	
 		ParseUser.enableAutomaticUser();
+		cUser = ParseUser.getCurrentUser();
+		currentUser = cUser.get("username").toString();
 	}
 
 	@Override

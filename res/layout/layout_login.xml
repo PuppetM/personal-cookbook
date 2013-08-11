@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android1:id="@+id/linearLayout1"
+        android1:layout_width="220dp"
+        android1:layout_height="wrap_content"
+        android1:layout_centerInParent="true"
+        android1:orientation="horizontal" >
+
+        <TextView
+            android1:id="@+id/tv_login_passwort"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:layout_gravity="center"
+            android1:layout_weight="8.40"
+            android1:text="Passwort: " />
+
+        <EditText
+            android1:id="@+id/ed_login_passwort"
+            android1:layout_width="150dp"
+            android1:layout_height="wrap_content"
+            android1:ems="10"
+            android1:inputType="textPassword"
+            android1:text="1234" />
+
+    </LinearLayout>
+
+    <Button
+        android1:id="@+id/bt_login_register"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignLeft="@+id/bt_login_login"
+        android1:layout_alignRight="@+id/bt_login_login"
+        android1:layout_below="@+id/bt_login_login"
+        android1:text="Registrierung" />
+
+    <Button
+        android1:id="@+id/bt_login_login"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignLeft="@+id/linearLayout1"
+        android1:layout_alignRight="@+id/linearLayout1"
+        android1:layout_below="@+id/linearLayout1"
+        android1:layout_marginTop="10dp"
+        android1:text="Login" />
+
+    <LinearLayout
+        android1:layout_width="220dp"
+        android1:layout_height="wrap_content"
+        android1:layout_above="@+id/linearLayout1"
+        android1:layout_centerHorizontal="true"
+        android1:orientation="horizontal" >
+
+        <TextView
+            android1:id="@+id/tv_login_benutzer"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:layout_gravity="center"
+            android1:layout_weight="2.53"
+            android1:text="Benutzer:" />
+
+        <EditText
+            android1:id="@+id/ed_login_benutzer"
+            android1:layout_width="150dp"
+            android1:layout_height="wrap_content"
+            android1:ems="10"
+            android1:inputType="textPersonName"
+            android1:text="Raphael2" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+</RelativeLayout>

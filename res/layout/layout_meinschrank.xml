@@ -3,18 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <EditText
-        android1:id="@+id/editText1"
-        android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:layout_alignParentLeft="true"
-        android1:layout_alignParentRight="true"
-        android1:layout_alignParentTop="true"
-        android1:ems="10" >
-
-        <requestFocus />
-    </EditText>
     
      <LinearLayout android:id="@+id/footerlayout"
         android:layout_marginTop="3dip"
@@ -47,7 +35,7 @@
          android1:layout_height="wrap_content"
          android1:layout_above="@+id/footerlayout"
          android1:layout_alignParentLeft="true"
-         android1:layout_below="@+id/editText1" >
+         android1:layout_alignParentTop="true" >
 
      </ListView>
 

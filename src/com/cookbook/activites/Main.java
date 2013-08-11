@@ -43,7 +43,7 @@ public class Main extends Activity {
 	private Spinner spinner;
 	private String selectedSpinner;
 	
-	private ArrayList<String> user = new ArrayList <String>();
+	ParseUser currentUser;
 	
 	
 	
@@ -84,7 +84,6 @@ public class Main extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Main.this,NeueZutat.class);
-				i.putStringArrayListExtra("user", user);
 				startActivity(i);
 			}
 		});
@@ -92,7 +91,6 @@ public class Main extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Main.this,AlleRezepte.class);
-				i.putStringArrayListExtra("user", user);
 				startActivity(i);
 			}
 		});
@@ -100,7 +98,6 @@ public class Main extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Main.this,MeinSchrank.class);
-				i.putStringArrayListExtra("user", user);
 				startActivity(i);
 			}
 		});		
@@ -127,6 +124,7 @@ public class Main extends Activity {
 		Parse.initialize(this, "PXJakVYimXSoEUbQvyiNRIB3LzCbP0FEqFOM7NZD", "ms0stwKSjkAcbhuBFs3LOt0Qmjt50UZ3buElHYGm");
 		ParseAnalytics.trackAppOpened(getIntent());	
 		ParseUser.enableAutomaticUser();
+		currentUser = ParseUser.getCurrentUser();
 	}
 	
 	
@@ -135,15 +133,7 @@ public class Main extends Activity {
 		toNeueZutat = (Button) findViewById (R.id.toNeueZutat);
 		toAlleRezepte = (Button) findViewById (R.id.toAlleRezepte);
 		toMeinSchrank = (Button) findViewById (R.id.toMeinSchrank);
-		spinner = (Spinner) findViewById (R.id.sp_allerezepte_spinner);
-		
-		
-		//user = getIntent().getExtras().getStringArrayList("user");
-		if(user.size()==0){
-			user.add("Hanswurst");
-		}
-		
-		
+		spinner = (Spinner) findViewById (R.id.sp_allerezepte_spinner);	
 	}
 
 	@Override

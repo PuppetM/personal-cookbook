@@ -45,8 +45,10 @@ public class AlleRezepte extends Activity {
 	ProgressBar pb_allerezepte;
 	String helpName;
 	
-	private ArrayList<String> user;	
-	private ArrayList<String> names;	
+	private ArrayList<String> names;
+	
+	String currentUser;
+	ParseUser cUser;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -159,14 +161,15 @@ public class AlleRezepte extends Activity {
 		ed_allerezepte_search = (EditText) findViewById (R.id.ed_allerezepte_search);
 		sp_allerezepte_spinner = (Spinner) findViewById (R.id.sp_allerezepte_spinner);
 		lv_allerezepte = (ListView) findViewById (R.id.lv_allerezepte);	
-		user = new ArrayList <String>();
 		names = new ArrayList <String>();
 	}
 
 	private void initParse() {
 		Parse.initialize(this, "PXJakVYimXSoEUbQvyiNRIB3LzCbP0FEqFOM7NZD", "ms0stwKSjkAcbhuBFs3LOt0Qmjt50UZ3buElHYGm");
 		ParseAnalytics.trackAppOpened(getIntent());	
-		ParseUser.enableAutomaticUser();		
+		ParseUser.enableAutomaticUser();	
+		cUser = ParseUser.getCurrentUser();
+		currentUser = cUser.get("username").toString();
 	}
 
 	@Override

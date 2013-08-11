@@ -62,6 +62,9 @@ public class Rezept extends Activity {
 	
 	ImageView iv_rezept_icon;
 	
+	ParseUser cUser;
+	String currentUser;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,8 +72,7 @@ public class Rezept extends Activity {
 		
 		initParse();
 		referenceUIElements();
-		getId();
-		
+		getId();		
 		
 	}
 	
@@ -137,7 +139,9 @@ public class Rezept extends Activity {
 	private void initParse() {
 		Parse.initialize(this, "PXJakVYimXSoEUbQvyiNRIB3LzCbP0FEqFOM7NZD", "ms0stwKSjkAcbhuBFs3LOt0Qmjt50UZ3buElHYGm");
 		ParseAnalytics.trackAppOpened(getIntent());	
-		ParseUser.enableAutomaticUser();		
+		ParseUser.enableAutomaticUser();
+		cUser = ParseUser.getCurrentUser();
+		currentUser = cUser.get("username").toString();
 	}
 
 	@Override
