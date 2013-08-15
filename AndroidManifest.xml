@@ -39,6 +39,9 @@
         <activity
             android:name="com.cookbook.activites.NeueZutat">
            </activity>
+        <activity
+            android:name="com.cookbook.activites.Freunde">
+           </activity>
     	<activity
             android:name="com.cookbook.activites.Rezept">
            </activity>

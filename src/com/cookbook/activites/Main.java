@@ -3,10 +3,14 @@ package com.cookbook.activites;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
+
+import com.cookbook.classes.Zutat;
 import com.example.cookbook.R;
 import com.example.cookbook.R.layout;
 import com.example.cookbook.R.menu;
+import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
@@ -43,7 +47,14 @@ public class Main extends Activity {
 	private Spinner spinner;
 	private String selectedSpinner;
 	
-	ParseUser currentUser;
+	ArrayList<String> friends;
+	private ArrayList<Zutat> zutaten;
+	
+	Boolean zutatVorhanden;
+	
+	ParseUser cUser;
+	String currentUser;
+	String id;
 	
 	
 	
@@ -54,12 +65,101 @@ public class Main extends Activity {
 		
 		initParse();
 		referenceUIElements();
+		
+		hasFriends();
+		
 		clickListener();
 		aktuList("Alle Kategorien");
 		
 		spinnerListener();		
 	}
 
+	public void onResume(){
+		super.onResume();
+		//hasFriends();	
+	}	
+	
+	private void hasFriends(){
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Freunde");
+		query.whereContains("User", currentUser);
+		query.findInBackground(new FindCallback<ParseObject>() {
+		    public void done(List<ParseObject> scoreList, ParseException e) {
+		        if (e == null && scoreList.size()!=0) {	
+		    		friends.clear();
+		    		friends.add(currentUser);
+		        	for(int i = 0; i < scoreList.size(); i++){
+		        		id = scoreList.get(0).getString("ID");
+		        		friends.add(scoreList.get(i).getString("Freund"));
+		        	}
+		        	getData();
+		        } else {
+		        	
+		        }
+		    }
+		});
+	}
+	
+	private void getData() {
+		for(int o = 0; o < friends.size(); o++){
+			final int k = o;
+			ParseQuery<ParseObject> query = ParseQuery.getQuery("UserData");
+			query.whereContains("Username", friends.get(o));
+			query.findInBackground(new FindCallback<ParseObject>() {
+			    public void done(List<ParseObject> scoreList, ParseException e) {
+			        if (e == null && scoreList.size()!=0) {	
+			        	for(int i = 0; i < scoreList.size(); i++){					        		
+			        		zutatVorhanden = false;
+			        		for(int m = 0; m < zutaten.size(); m++){
+			        			if(zutaten.get(m).getName().equals(scoreList.get(i).getString("Zutat"))&&zutaten.get(m).getEinheit().equals(scoreList.get(i).getString("Masseinheit"))){
+			        				zutatVorhanden = true;
+			        				zutaten.get(m).addMenge(scoreList.get(i).getDouble("Menge"));
+			        			}
+			        		}
+			        		if(!zutatVorhanden){
+			        			Zutat newZutat = new Zutat (scoreList.get(i).getString("Zutat"),scoreList.get(i).getDouble("Menge"),scoreList.get(i).getString("Masseinheit"));
+			        			zutaten.add(newZutat);
+			        		}
+			        	}
+			        	if(k == friends.size()-1){
+			        		deleteOldDatabase();
+			        	}
+			        } else {
+			        }
+			    }
+			});															
+		}
+	}
+	
+	private void deleteOldDatabase(){
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("TogetherUserData");
+		query.whereContains("Username", id);
+		query.findInBackground(new FindCallback<ParseObject>() {
+		    public void done(List<ParseObject> scoreList, ParseException e) {
+		        if (e == null && scoreList.size()!=0) {		
+		        	for(int i = 0; i < scoreList.size(); i++){
+		        		scoreList.get(i).deleteInBackground();
+		        	}
+		        } else {
+		       
+		        }	
+		        if(friends.size()>0){
+		        	createNewDatabase();	
+		        }		        
+		     }
+		});	
+	}
+
+	private void createNewDatabase(){
+		for(int i = 0; i < zutaten.size(); i++){
+			ParseObject data = new ParseObject("TogetherUserData");
+			data.put("Username", id);
+			data.put("Masseinheit", zutaten.get(i).getEinheit());
+			data.put("Menge", zutaten.get(i).getMenge());
+			data.put("Zutat", zutaten.get(i).getName());
+			data.saveInBackground();
+		}
+	}
+	
 	private void spinnerListener() {
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -113,6 +213,7 @@ public class Main extends Activity {
 				}				
 				query.orderByDescending("ID");
 				return query;
+
 			}
 		});
 		adapter.setTextKey("Name");		
@@ -124,7 +225,8 @@ public class Main extends Activity {
 		Parse.initialize(this, "PXJakVYimXSoEUbQvyiNRIB3LzCbP0FEqFOM7NZD", "ms0stwKSjkAcbhuBFs3LOt0Qmjt50UZ3buElHYGm");
 		ParseAnalytics.trackAppOpened(getIntent());	
 		ParseUser.enableAutomaticUser();
-		currentUser = ParseUser.getCurrentUser();
+		cUser = ParseUser.getCurrentUser();
+		currentUser = cUser.get("username").toString();
 	}
 	
 	
@@ -134,6 +236,8 @@ public class Main extends Activity {
 		toAlleRezepte = (Button) findViewById (R.id.toAlleRezepte);
 		toMeinSchrank = (Button) findViewById (R.id.toMeinSchrank);
 		spinner = (Spinner) findViewById (R.id.sp_allerezepte_spinner);	
+		friends = new ArrayList<String>();
+		zutaten = new ArrayList<Zutat>();
 	}
 
 	@Override
@@ -142,5 +246,6 @@ public class Main extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
 }
+	
+	

@@ -77,11 +77,9 @@ public class NeueZutat extends Activity {
 	private String barcode, nameEAN, hersteller, ean;
 	private Boolean vorhanden = false;
 	ImageView iv_zutat_picture;
-
-	ArrayList<String> zutaten_name;
-	ArrayList<String> zutaten_einheit;
-	ArrayList<Double> zutaten_menge;
 	
+	private ArrayList<Zutat> zutaten;
+
 	ParseUser cUser;
 	String currentUser;
 	
@@ -103,14 +101,10 @@ public class NeueZutat extends Activity {
 		query.findInBackground(new FindCallback<ParseObject>() {
 		    public void done(List<ParseObject> scoreList, ParseException e) {
 		        if (e == null) {
-		            for(int i = 0; i < scoreList.size(); i++){
-		            	String name = scoreList.get(i).get("Zutat").toString();
-		            	String einheit = scoreList.get(i).get("Masseinheit").toString();
-		            	Double menge = Double.parseDouble(scoreList.get(i).get("Menge").toString());
-		            	zutaten_name.add(name);
-		            	zutaten_einheit.add(einheit);
-		            	zutaten_menge.add(menge);
-		            }
+		        	for(int i = 0; i < scoreList.size(); i++){					        		
+		        		Zutat newZutat = new Zutat (scoreList.get(i).getString("Zutat"),scoreList.get(i).getDouble("Menge"),scoreList.get(i).getString("Masseinheit"));
+		        		zutaten.add(newZutat);
+		        	}
 		        } else {
 
 		        }
@@ -124,47 +118,17 @@ public class NeueZutat extends Activity {
 			public void onClick(View v) {
 				vorhanden = false;
 				if(name.getText().toString().length()>0&&einheit.getText().toString().length()>0){
-					for(int i = 0; i < zutaten_name.size(); i++){
-						if(zutaten_name.get(i).equals(name.getText().toString())&&(zutaten_einheit.get(i).equals(spinner.getSelectedItem().toString()))){
-							vorhanden = true;
-						}
-					}
-					if(vorhanden){
-						ParseQuery<ParseObject> query = ParseQuery.getQuery("UserData");
-						query.whereEqualTo("Username", currentUser);
-						query.findInBackground(new FindCallback<ParseObject>() {
-						    public void done(List<ParseObject> scoreList, ParseException e) {
-						        if (e == null) {
-						            for(int i = 0; i < scoreList.size(); i++){
-						            	if(scoreList.get(i).get("Zutat").toString().equals(name.getText().toString())&&(zutaten_einheit.get(i).equals(spinner.getSelectedItem().toString()))){
-						            		ParseObject newZutat = scoreList.get(i);
-						            		newZutat.put("Menge", Double.parseDouble(scoreList.get(i).get("Menge").toString())+Double.parseDouble(einheit.getText().toString()));
-						            		newZutat.saveInBackground();
-						            		Toast toast = Toast.makeText(getApplicationContext(), name.getText().toString()+" wurde(n) in der Datenbank gespeichert", Toast.LENGTH_SHORT);
-											toast.show();
-											
-											Intent i2 = new Intent(NeueZutat.this,Main.class);
-											startActivity(i2);
-										}
-						            }
-						        } else {
-						        }
-						    }
-						});
-					}else{
-						ParseObject data = new ParseObject("UserData");
-						data.put("Masseinheit", spinner.getSelectedItem().toString());
-						data.put("Zutat", name.getText().toString());
-						data.put("Username", currentUser);
-						data.put("Menge", Double.parseDouble(einheit.getText().toString()));
-						data.saveInBackground();
-						
-						Toast toast = Toast.makeText(getApplicationContext(), name.getText().toString()+" wurde(n) in der Datenbank gespeichert", Toast.LENGTH_SHORT);
-						toast.show();
-						
-						Intent i = new Intent(NeueZutat.this,Main.class);
-						startActivity(i);
-					}
+					for(int m = 0; m < zutaten.size(); m++){
+	        			if(zutaten.get(m).getName().equals(name.getText().toString())&&zutaten.get(m).getEinheit().equals(spinner.getSelectedItem().toString())){
+	        				vorhanden = true;
+	        				zutaten.get(m).addMenge( Double.parseDouble(einheit.getText().toString()));
+	        			}
+	        		}
+	        		if(!vorhanden){
+	        			Zutat newZutat = new Zutat (name.getText().toString(), Double.parseDouble(einheit.getText().toString()), spinner.getSelectedItem().toString());
+	        			zutaten.add(newZutat);
+	        		}
+	        		deleteOldDatabase();
 				}
 			}
 		});	
@@ -175,6 +139,36 @@ public class NeueZutat extends Activity {
 				addObject();				
 			}
 		});	
+	}
+	
+	private void deleteOldDatabase(){
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("UserData");
+		query.whereContains("Username", currentUser);
+		query.findInBackground(new FindCallback<ParseObject>() {
+		    public void done(List<ParseObject> scoreList, ParseException e) {
+		        if (e == null && scoreList.size()!=0) {		
+		        	for(int i = 0; i < scoreList.size(); i++){
+		        		scoreList.get(i).deleteInBackground();
+		        	}
+		        } else {
+		       
+		        }	
+		        createNewDatabase();			        
+		     }
+		});	
+	}
+
+	private void createNewDatabase(){
+		for(int i = 0; i < zutaten.size(); i++){
+			ParseObject data = new ParseObject("UserData");
+			data.put("Username", currentUser);
+			data.put("Masseinheit", zutaten.get(i).getEinheit());
+			data.put("Menge", zutaten.get(i).getMenge());
+			data.put("Zutat", zutaten.get(i).getName());
+			data.saveInBackground();
+		}
+		Intent i = new Intent(NeueZutat.this,Main.class);
+		startActivity(i);
 	}
 	
     public void addObject (){
@@ -237,9 +231,7 @@ public class NeueZutat extends Activity {
 		//pb = (ProgressBar) findViewById (R.id.progressBar1);
 		//pb.setVisibility(View.INVISIBLE);
 		iv_zutat_picture.setVisibility(View.INVISIBLE);
-		zutaten_name = new ArrayList<String>();
-		zutaten_einheit = new ArrayList<String>();
-		zutaten_menge = new ArrayList<Double>();
+		zutaten = new ArrayList<Zutat>();
 		
 	}
 	
