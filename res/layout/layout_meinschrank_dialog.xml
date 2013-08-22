@@ -4,36 +4,74 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tv_meinschrank_dialog"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/et_meinschrank_dialog"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/et_meinschrank_dialog"
-        android:text="Bitte den Namen des Freundes eingeben:"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="25dp" />
+        android:layout_centerInParent="true" >
 
-    <EditText
-        android:id="@+id/et_meinschrank_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_meinschrank_dialog"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="Zutat editieren:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/bt_meinschrank_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/et_meinschrank_dialog"
-        android:layout_alignRight="@+id/et_meinschrank_dialog"
-        android:layout_below="@+id/et_meinschrank_dialog"
-        android:background="@android:drawable/btn_default"
-        android:text="Verbinden!" />
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayout1"
+            android:layout_centerHorizontal="true" >
+
+            <Spinner
+                android:id="@+id/sp_meinSchrank_Dialog_Spinner"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:entries="@array/einheiten" />
+
+            <EditText
+                android:id="@+id/ed_neueZutat_Menge"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/sp_meinSchrank_Dialog_Spinner"
+                android:ems="10" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/relativeLayout2"
+            android:layout_below="@+id/textView1" >
+
+            <AutoCompleteTextView
+                android:id="@+id/ed_meinschrank_dialog_artikel"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:ems="10"
+                android:hint="Artikelname"
+                android:imeOptions="actionNext"
+                android:lines="1"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/bt_meinSchrank_dialog_speichern"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="Speichern" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -2,7 +2,8 @@
     xmlns:android1="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android1:background="@drawable/bg" >
 
     <LinearLayout
         android1:id="@+id/linearLayout2"
@@ -53,5 +54,14 @@
             android1:layout_height="wrap_content"
             android1:inputType="textPersonName" />
     </LinearLayout>
+
+    <ImageView
+        android1:id="@+id/imageView1"
+        android1:layout_width="200dp"
+        android1:layout_height="150dp"
+        android1:layout_alignParentTop="true"
+        android1:layout_centerHorizontal="true"
+        android1:layout_marginTop="20dp"
+        android1:src="@drawable/icon" />
 
 </RelativeLayout>

@@ -1,41 +1,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:android1="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="150dp"
+    android:orientation="vertical"
+    android1:gravity="left" >
 
     <TextView
         android1:id="@+id/tv_zutat_name"
-        android1:layout_width="150dp"
+        android1:layout_width="100dp"
         android1:layout_height="wrap_content"
+        android1:layout_centerVertical="true"
         android1:layout_toRightOf="@+id/iv_zutat_picture"
         android1:text="Medium Text"
-        android1:textAppearance="?android:attr/textAppearanceMedium" />
+        android1:textAppearance="?android:attr/textAppearanceMedium"
+        android1:textSize="14sp" />
 
     <ImageView
         android1:id="@+id/iv_zutat_picture"
-        android1:layout_width="50dp"
+        android1:layout_width="100dp"
         android1:layout_height="50dp"
         android1:layout_alignParentLeft="true"
-        android1:layout_alignParentTop="true"
-        android1:src="@android:drawable/picture_frame" />
+        android1:layout_centerVertical="true"
+        android1:layout_margin="10dp"
+        android1:src="@drawable/no_pic_res" />
 
     <TextView
         android1:id="@+id/tv_zutat_einheit"
-        android1:layout_width="25dp"
+        android1:layout_width="40dp"
         android1:layout_height="wrap_content"
         android1:layout_alignParentRight="true"
-        android1:layout_alignParentTop="true"
+        android1:layout_centerVertical="true"
         android1:text="Medium Text"
-        android1:textAppearance="?android:attr/textAppearanceMedium" />
+        android1:textAppearance="?android:attr/textAppearanceMedium"
+        android1:textSize="13sp" />
 
     <TextView
         android1:id="@+id/tv_zutat_menge"
-        android1:layout_width="100dp"
+        android1:layout_width="40dp"
         android1:layout_height="wrap_content"
-        android1:layout_alignParentTop="true"
+        android1:layout_centerVertical="true"
+        android1:layout_marginRight="5dp"
         android1:layout_toLeftOf="@+id/tv_zutat_einheit"
         android1:text="Medium Text"
-        android1:textAppearance="?android:attr/textAppearanceMedium" />
+        android1:textAppearance="?android:attr/textAppearanceMedium"
+        android1:textSize="13sp" />
 
 </RelativeLayout>

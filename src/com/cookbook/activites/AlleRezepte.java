@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.cookbook.classes.AlleRezepteSimpleArrayAdapter;
 import com.example.cookbook.R;
 import com.example.cookbook.R.layout;
 import com.example.cookbook.R.menu;
@@ -18,6 +19,7 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +31,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -45,7 +48,10 @@ public class AlleRezepte extends Activity {
 	ProgressBar pb_allerezepte;
 	String helpName;
 	
+	AlleRezepteSimpleArrayAdapter adapter;
+	
 	private ArrayList<String> names;
+	private ArrayList<String> ids;
 	
 	String currentUser;
 	ParseUser cUser;
@@ -53,7 +59,7 @@ public class AlleRezepte extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_allerezepte);		
+		setContentView(R.layout.layout_allerezepte);
 		
 		initParse();
 		referenceUIElements();
@@ -66,6 +72,8 @@ public class AlleRezepte extends Activity {
 		addListViewListener();
 		
 	}
+	
+	
 
 	private void addListViewListener() {
 		lv_allerezepte.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,9 +116,8 @@ public class AlleRezepte extends Activity {
 		});		
 	}
 
-	private void aktuList(final String cat, final String name) {
-		ParseQueryAdapter<ParseObject> adapter =  new ParseQueryAdapter<ParseObject>(this, new ParseQueryAdapter.QueryFactory<ParseObject>() {
-			public ParseQuery<ParseObject> create() {	   
+	private void aktuList(final String cat, final String name) {				
+				
 				List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();			
 				if(name.length()>0){
 					String[] arr = name.split(" ");    
@@ -132,7 +139,8 @@ public class AlleRezepte extends Activity {
 					ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Gericht");	
 					queries.add(query);
 				}				
-				ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);				
+				ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);	
+				mainQuery.setLimit(1000);
 				if(cat.equals("Alle Kategorien")){					
 				}else{
 					mainQuery.whereContains("Kategorie", cat);
@@ -140,28 +148,31 @@ public class AlleRezepte extends Activity {
 				
 				try {
 					names.clear();
+					ids.clear();
 					List<ParseObject> results = mainQuery.find();
 					for(int i = 0; i < results.size(); i++){
-						  String name = results.get(i).getString("Name");
-						  names.add(name);
+						  ids.add(results.get(i).getNumber("ID").toString());
+						  names.add(results.get(i).getString("Name"));
 					 }
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 
-				return mainQuery;
-			}
 			
-		});
-		adapter.setTextKey("Name");		
-		lv_allerezepte.setAdapter(adapter);		
+		Log.e("TAG", ids.size()+"");
+		adapter.notifyDataSetChanged();
 	}
 
 	private void referenceUIElements() {
 		ed_allerezepte_search = (EditText) findViewById (R.id.ed_allerezepte_search);
 		sp_allerezepte_spinner = (Spinner) findViewById (R.id.sp_allerezepte_spinner);
-		lv_allerezepte = (ListView) findViewById (R.id.lv_allerezepte);	
+		
 		names = new ArrayList <String>();
+		ids = new ArrayList <String>(); 
+		
+		lv_allerezepte = (ListView) findViewById (R.id.lv_alleRezepte_liste);	
+		adapter = new AlleRezepteSimpleArrayAdapter(AlleRezepte.this, names, ids);
+		lv_allerezepte.setAdapter(adapter);	
 	}
 
 	private void initParse() {

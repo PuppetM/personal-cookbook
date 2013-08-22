@@ -1,40 +1,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_freunde"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg" >
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/ed_freunde_freund"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:hint="Name des Freundes"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/bt_freunde_befreunden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ed_freunde_freund"
+        android:text="Datenbank mit Freund verknüpfen" />
+
+    <ListView
+        android:id="@+id/lv_freunde"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bt_freunde_befreunden" >
+    </ListView>
+
+    <ProgressBar
+        android:id="@+id/pb_freunde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:focusable="true" 
-            android:focusableInTouchMode="true"
-            android:layout_height="wrap_content" >
-
-            <EditText
-                android:id="@+id/ed_freunde_freund"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
-            <Button
-                android:id="@+id/bt_freunde_befreunden"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Befreunden" />
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/lv_freunde"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
-
-    </LinearLayout>
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

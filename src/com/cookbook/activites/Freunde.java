@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cookbook.classes.CustomAdapter;
+import com.cookbook.classes.FreundeSimpleArrayAdapter;
 import com.cookbook.classes.Zutat;
 import com.example.cookbook.R;
 import com.parse.FindCallback;
@@ -15,7 +16,9 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -23,10 +26,15 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
+import android.content.Context;
 
 
 public class Freunde extends Activity {
@@ -37,7 +45,12 @@ public class Freunde extends Activity {
 	ListView lv_freunde;
 	Button bt_freunde_befreunden;
 	EditText ed_freunde_freund;
-	ArrayAdapter adapter;
+	FreundeSimpleArrayAdapter adapter;
+	ProgressBar pb_freunde;
+	
+	RelativeLayout freunde;
+	
+	String freund;
 	
 	private ArrayList<Zutat> zutaten;
 	
@@ -48,7 +61,7 @@ public class Freunde extends Activity {
 	
 	String id;
 	
-	private List friends = new ArrayList<String>();
+	private ArrayList<String> friends = new ArrayList<String>();
 	
 	private ArrayList<String> users;
 	
@@ -104,23 +117,31 @@ public class Freunde extends Activity {
 
 	private void listViewListener() {
 		lv_freunde.setOnItemLongClickListener(new OnItemLongClickListener() {
+			
+				
+			
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,final int arg2, long arg3) {
+			
+				Toast toast = Toast.makeText(getApplicationContext(), "Sie sind nicht mehr mit "+friends.get(arg2).toString()+" befreundet!", Toast.LENGTH_SHORT);
+				toast.show();
+				
+				freund = friends.get(arg2).toString();
+				
+				friends.remove(arg2);
+				adapter.notifyDataSetChanged();
+			
 				ParseQuery<ParseObject> query = ParseQuery.getQuery("Freunde");
 				query.whereContains("User", currentUser);
-				query.whereContains("Freund", friends.get(arg2).toString());
+				query.whereContains("Freund", freund);
 				query.findInBackground(new FindCallback<ParseObject>() {
 				    public void done(List<ParseObject> scoreList, ParseException e) {
 				        if (e == null && scoreList.size()!=0) {
 				        	scoreList.get(0).deleteInBackground();
 				        } else {
 
-				        }
-				        Toast toast = Toast.makeText(getApplicationContext(), "Sie sind nicht mehr mit "+friends.get(arg2).toString()+" befreundet!", Toast.LENGTH_SHORT);
-						toast.show();						
-						removeUserFromDatabase(friends.get(arg2).toString());
-						friends.remove(arg2);
-						adapter.notifyDataSetChanged();
+				        }					
+						removeUserFromDatabase(freund);						
 				    }					
 				});
 				return true;
@@ -176,9 +197,10 @@ public class Freunde extends Activity {
 						}
 					}
 					if(isUser&&isNotFriend==false){
-						createUserConnection(ed_freunde_freund.getText().toString());
+						createUserConnection(ed_freunde_freund.getText().toString());						
 						Toast toast = Toast.makeText(getApplicationContext(), ed_freunde_freund.getText().toString()+" wurde hinzugefügt!", Toast.LENGTH_SHORT);
 						toast.show();
+						ed_freunde_freund.setText(null);
 					}else if(isUser==false){
 						Toast toast = Toast.makeText(getApplicationContext(), "Der User existiert nicht!", Toast.LENGTH_SHORT);
 						toast.show();
@@ -223,12 +245,22 @@ public class Freunde extends Activity {
 		        	hasAlreadyFriends = false;
 		        }
 		        getZutaten();
+		        pb_freunde.setVisibility(View.INVISIBLE);
 		        adapter.notifyDataSetChanged();
+		        setBackground();
 		    }
 		});
 		
 		
 		
+	}
+	
+	private void setBackground(){
+		if(friends.size()<1){
+	    	   freunde.setBackgroundResource(R.drawable.freundebg);
+	    }else{
+	    	   freunde.setBackgroundResource(R.drawable.bg);
+	    }	
 	}
 	
 	private void createUserConnection(String freund) {
@@ -243,6 +275,7 @@ public class Freunde extends Activity {
 		friends.add(freund);
 		getFriendsData(freund);
 		adapter.notifyDataSetChanged();
+		setBackground();
 	}
 	
 	private void getFriendsData(String freund) {
@@ -306,10 +339,13 @@ public class Freunde extends Activity {
 		ed_freunde_freund = (EditText) findViewById (R.id.ed_freunde_freund);
 		lv_freunde = (ListView) findViewById (R.id.lv_freunde);
 		bt_freunde_befreunden = (Button) findViewById (R.id.bt_freunde_befreunden);	
+		pb_freunde = (ProgressBar) findViewById (R.id.pb_freunde);
+		freunde = (RelativeLayout) findViewById(R.id.layout_freunde);
+		pb_freunde.setProgress(5);
 		zutaten = new ArrayList<Zutat>();
 		users = new ArrayList<String>();
 		friends = new ArrayList<String>();
-		adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, friends);;
+		adapter = new FreundeSimpleArrayAdapter(this, friends);
 		lv_freunde.setAdapter(adapter);
 	}
 
@@ -320,7 +356,6 @@ public class Freunde extends Activity {
 		cUser = ParseUser.getCurrentUser();
 		currentUser = cUser.get("username").toString();		
 	}
-	
-
-	
 }
+	
+	

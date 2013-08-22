@@ -46,6 +46,7 @@ public class Main extends Activity {
 	private List<ParseObject> todos;
 	private Spinner spinner;
 	private String selectedSpinner;
+	Boolean sync;
 	
 	ArrayList<String> friends;
 	private ArrayList<Zutat> zutaten;
@@ -158,6 +159,7 @@ public class Main extends Activity {
 			data.put("Zutat", zutaten.get(i).getName());
 			data.saveInBackground();
 		}
+		sync = false;
 	}
 	
 	private void spinnerListener() {
@@ -238,6 +240,7 @@ public class Main extends Activity {
 		spinner = (Spinner) findViewById (R.id.sp_allerezepte_spinner);	
 		friends = new ArrayList<String>();
 		zutaten = new ArrayList<Zutat>();
+		sync = true;
 	}
 
 	@Override

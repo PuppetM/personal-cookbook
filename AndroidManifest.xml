@@ -10,6 +10,7 @@
     
     <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+ <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -34,13 +35,15 @@
             android:name="com.cookbook.activites.AlleRezepte">
         </activity>
         <activity
-            android:name="com.cookbook.activites.MeinSchrank">
+            android:name="com.cookbook.activites.MeinSchrank"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name="com.cookbook.activites.NeueZutat">
            </activity>
         <activity
-            android:name="com.cookbook.activites.Freunde">
+            android:name="com.cookbook.activites.Freunde"
+            android:windowSoftInputMode="adjustPan">
            </activity>
     	<activity
             android:name="com.cookbook.activites.Rezept">

@@ -1,32 +1,40 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:android1="http://schemas.android.com/apk/res/android"
+    android1:id="@+id/meinSchrank"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android1:background="@drawable/bg" >
+
+    <ProgressBar
+        android1:id="@+id/pb_meinSchrank"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_centerInParent="true" />
     
-     <LinearLayout android:id="@+id/footerlayout"
-        android:layout_marginTop="3dip"
-        android:layout_height="45dip"
-        android:orientation="horizontal" 
-        android:layout_width="fill_parent" 
-        android:gravity="center"
-        android:layout_alignParentBottom="true">
-        
-        <Button
-            android:id="@+id/zutatLoeschen" 
-            android:text="Zutat löschen" 
-            android:layout_width="0dip"
-            android:layout_height="60dip"
-            android:layout_weight="1">
-        </Button>   
-        <Button
-            android:id="@+id/neueDatenbank" 
-            android:text="Datenbank verknüpfen"
-            android:layout_width="0dip"
-            android:layout_height="60dip"
-            android:layout_weight="1"
-            >
-        </Button>   
+     <LinearLayout
+         android:id="@+id/footerlayout"
+         android:layout_width="fill_parent"
+         android:layout_height="45dip"
+         android:layout_alignParentBottom="true"
+         android:layout_marginTop="3dip"
+         android:gravity="center"
+         android:orientation="horizontal">
+
+         <Button
+             android1:id="@+id/bt_meinSchrank_neueZutat"
+             android1:layout_width="0dp"
+             android1:layout_height="70dp"
+             android1:layout_weight="1.00"
+             android1:text="Zutat hinzufügen" />
+
+         <Button
+             android1:id="@+id/neueDatenbank"
+             android1:layout_width="0dip"
+             android1:layout_height="70dp"
+             android1:layout_weight="1.00"
+             android1:text="Datenbank verknüpfen" />
+   
     </LinearLayout>
 
      <ListView

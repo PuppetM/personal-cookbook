@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
@@ -20,59 +21,68 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cookbook.asynchronImageLoader.ImageLoader;
 import com.example.cookbook.R;
 
-public class CustomAdapter extends ArrayAdapter<Zutat>{
-    private ArrayList<Zutat> entries;
-    private Activity activity;
+public class CustomAdapter extends BaseAdapter{
     
- 
+  	private final ArrayList<Zutat> entries;
+  	private Activity activity;
+    private String[] data;
+    private static LayoutInflater inflater=null;
+    public ImageLoader imageLoader; 
 
  
-    public CustomAdapter(Activity a, int textViewResourceId, ArrayList<Zutat> entries) {
-    	super(a, textViewResourceId, entries);
-        this.entries = entries;
-        this.activity = a;
+    public CustomAdapter(Activity a, ArrayList<Zutat> entries) {
+		activity = a;
+	    this.entries = entries;
+	    inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        imageLoader = new ImageLoader (activity.getApplicationContext());        
+	  }
+
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return entries.size();
 	}
 
-	public class ViewHolder{
-        public TextView tv_zutat_name;
-        public TextView tv_zutat_menge;
-        public TextView tv_zutat_einheit;
-        public ImageView iv_zutat_picture;
-    }
- 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View v = convertView;
-        ViewHolder holder;
-        if (v == null) {
-            LayoutInflater vi = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.layout_meinschrank_liste, null);
-            holder = new ViewHolder();
-            holder.tv_zutat_name = (TextView) v.findViewById(R.id.tv_zutat_name);
-            holder.tv_zutat_menge = (TextView) v.findViewById(R.id.tv_zutat_menge);
-            holder.tv_zutat_einheit = (TextView) v.findViewById(R.id.tv_zutat_einheit);
-            holder.iv_zutat_picture = (ImageView) v.findViewById(R.id.iv_zutat_picture);
-            v.setTag(holder);
-        }
-        else
-            holder=(ViewHolder)v.getTag();
- 
-        final Zutat custom = entries.get(position);
-        if (custom != null) {
-            holder.tv_zutat_name.setText(custom.getName());
-            holder.tv_zutat_menge.setText(custom.getMenge().toString());
-            holder.tv_zutat_einheit.setText(custom.getEinheit());
-            //holder.iv_zutat_picture.setImageBitmap();
-            
-        }
-        return v;
-    }
+	@Override
+	public Object getItem(int position) {
+		// TODO Auto-generated method stub
+		return position;
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO Auto-generated method stub
+		return position;
+	}
+	
+	 public View getView(int position, View convertView, ViewGroup parent) {	    	
+	    	
+	    	View vi=convertView;
+	        if(convertView==null){
+	            vi = inflater.inflate(R.layout.layout_meinschrank_liste, null);
+	        }
+	        
+	        ImageView iv_zutat_picture =(ImageView)vi.findViewById(R.id.iv_zutat_picture);
+	        TextView tv_zutat_einheit =(TextView)vi.findViewById(R.id.tv_zutat_einheit);
+	        TextView tv_zutat_menge =(TextView)vi.findViewById(R.id.tv_zutat_menge);
+	        TextView tv_zutat_name =(TextView)vi.findViewById(R.id.tv_zutat_name);
+	        
+	        tv_zutat_name.setText(entries.get(position).getName());
+	        tv_zutat_menge.setText(entries.get(position).getMenge().toString());
+	        tv_zutat_einheit.setText(entries.get(position).getEinheit());
+	        
+	        imageLoader.DisplayImage("http://www.marions-kochbuch.de/index-bilder/"+URLEncoder.encode(entries.get(position).getName().toLowerCase())+".jpg", iv_zutat_picture);
+        
+	        return vi;
+	   }
     
 
 

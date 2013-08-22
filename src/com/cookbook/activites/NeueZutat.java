@@ -167,6 +167,8 @@ public class NeueZutat extends Activity {
 			data.put("Zutat", zutaten.get(i).getName());
 			data.saveInBackground();
 		}
+		Toast toast = Toast.makeText(this, name.getText().toString()+" wurde hinzugefügt!", Toast.LENGTH_SHORT);
+		toast.show();
 		Intent i = new Intent(NeueZutat.this,Main.class);
 		startActivity(i);
 	}
@@ -226,10 +228,10 @@ public class NeueZutat extends Activity {
 		iv_zutat_picture = (ImageView) findViewById (R.id.iv_zutat_picture);
 		name.setAdapter(adapter);
 		insert = (Button) findViewById (R.id.zutatHinzufuegenButton);
-		einheit = (EditText) findViewById (R.id.einheit);
+		einheit = (EditText) findViewById (R.id.ed_neueZutat_Menge);
 		scan = (Button) findViewById (R.id.scanButton);
-		//pb = (ProgressBar) findViewById (R.id.progressBar1);
-		//pb.setVisibility(View.INVISIBLE);
+		pb = (ProgressBar) findViewById (R.id.pb_neueZutat);
+		pb.setVisibility(View.INVISIBLE);
 		iv_zutat_picture.setVisibility(View.INVISIBLE);
 		zutaten = new ArrayList<Zutat>();
 		

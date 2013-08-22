@@ -3,10 +3,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android1:background="@drawable/bg"
     android1:gravity="top" >
 
     <ListView
-        android1:id="@+id/lv_allerezepte"
+        android1:id="@+id/lv_alleRezepte_liste"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android1:layout_below="@+id/sp_allerezepte_spinner"
@@ -32,6 +33,8 @@
             android1:layout_marginRight="10dp"
             android1:layout_marginTop="5dp"
             android:lines="1"
+            android:focusable="true" 
+            android:hint="Suche"
             android:nextFocusLeft="@id/ed_allerezepte_search"
             android:nextFocusUp="@id/ed_allerezepte_search"
             android1:ems="10" />
