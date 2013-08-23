@@ -8,7 +8,7 @@
 
     <LinearLayout
         android1:id="@+id/linearLayout1"
-        android1:layout_width="220dp"
+        android1:layout_width="240dp"
         android1:layout_height="wrap_content"
         android1:layout_centerInParent="true"
         android1:orientation="horizontal" >
@@ -19,7 +19,9 @@
             android1:layout_height="wrap_content"
             android1:layout_gravity="center"
             android1:layout_weight="8.40"
-            android1:text="Passwort: " />
+            android1:gravity="right"
+            android1:text="Passwort: "
+            android1:textSize="18sp" />
 
         <EditText
             android1:id="@+id/ed_login_passwort"
@@ -28,7 +30,6 @@
             android1:ems="10"
             android1:inputType="textPassword"
             android1:text="1234" />
-
     </LinearLayout>
 
     <Button
@@ -51,7 +52,8 @@
         android1:text="Login" />
 
     <LinearLayout
-        android1:layout_width="220dp"
+        android1:id="@+id/linearLayout2"
+        android1:layout_width="240dp"
         android1:layout_height="wrap_content"
         android1:layout_above="@+id/linearLayout1"
         android1:layout_centerHorizontal="true"
@@ -63,7 +65,9 @@
             android1:layout_height="wrap_content"
             android1:layout_gravity="center"
             android1:layout_weight="2.53"
-            android1:text="Benutzer:" />
+            android1:gravity="right"
+            android1:text="Benutzer: "
+            android1:textSize="18sp" />
 
         <EditText
             android1:id="@+id/ed_login_benutzer"
@@ -79,11 +83,11 @@
 
     <ImageView
         android1:id="@+id/imageView1"
-        android1:layout_width="200dp"
-        android1:layout_height="150dp"
-        android1:layout_alignParentTop="true"
+        android1:layout_width="300dp"
+        android1:layout_height="200dp"
+        android1:layout_above="@+id/linearLayout2"
         android1:layout_centerHorizontal="true"
-        android1:layout_marginTop="20dp"
+        android1:layout_marginBottom="10dp"
         android1:src="@drawable/icon" />
 
 </RelativeLayout>

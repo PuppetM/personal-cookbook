@@ -22,6 +22,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.cookbook.classes.MainSpinnerAdapter;
 import com.cookbook.classes.Zutat;
 import com.cookbook.scanner.IntentIntegrator;
 import com.cookbook.scanner.IntentResult;
@@ -39,12 +40,14 @@ import com.parse.ParseUser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentTabHost;
@@ -64,11 +67,13 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class NeueZutat extends Activity {
 
 	private static final String[] Zutaten = new String[] {"Langustenschwaenze","Pilzeinweichwasser","Spargelabschnitte","Walnuesse","Weissweinessig","Fruehlingsrollenteig","Limettenblaetter","Mayonnaise","Wasser, kalt","Pecorino","Krakauer","Koriander","Bio Zitrone","Hirse","Salsa espanola","Chorizo","Hamburger-Broetchen","Kalbshaxenscheiben","frische Kraeuter","Maismehl","Schinkenkrakauer","Schafskaese","Salatgurke","Cashew-Nuesse","Chilischoten, eingelegt","Glasnudeln","Schweinefilet","Johannisbeersaft, schwarz","Suppengruen","Garnelen","Curry, rot","Kroketten","Ananas, Dose","Sesamoel","Gemuesebruehe","Schinkenspeck","Weisskohl","Putenschnitzel","Schweinelachssteak","Baguette","Kalbsfond","Zucker","Staerkemehl","Champignons","Wiener Wuerstchen","Tagliatelle","Fleur de Sel","Fleischtomaten","Pinienkerne","Senfkoerner","Maiskeimoel","Grana Padano","Schalotten","Tomate","Rotweinessig","Feta","Knoblauchzehen","Creme Fraiche","Chilisauce","Speck, durchwachsen","Forellen","Bacon, in Streifen","Frischkaese","Erbsen","China-Sauce, suess-sauer","Fischfond","Ciabatta","Nudeln","Ravioli, Spinat","Sambal Oelek","Basmati Reis","Kraeuterseitlinge","Miesmuscheln","Limonensaft","Butter","Thymian","Putenmedaillon","Butterschmalz","Kohlrabi","Knoblauch","Lachs, geraeuchert","Paprika, gruen","Rumpsteak","Oel","Pflaumenwein","Oliven, gruen","Rosmarinzweige","Markknochen","Kokosraspel","Pfeffer, Salz","Schweinegulasch","Chinakohl","Lorbeerblatt","Nudeln, bunte","Calamaris","Kartoffeln","Balsamico-Essig","Fleischbruehe","Parma","Schnittlauch","Porree","Eiweiss","Gouda, gerieben","Lauch","Wok-Nudeln","Gemuesemix","Oliven mit Paprika","Rinderhuftsteak","Shrimps","Paprika","Tzatziki","Zuckercouleur","Chilipulver","Spitzpaprika, gelb","Curry","Sojasauce, suess","Mett","Rapsoel","Gewuerzgurken","Pfefferkoerner, rot","Ingwer","Tomatenpaprika, rot","Rindergulasch","Roquefortkaese","Hot Dog Broetchen","Creme Fraiche Kraeuter","franzoesischer Weichkaese","Orange","Schmand","Senf","Bucatini","Apfelkompott","Haehnchenbrustfilet","Gouda, mittelalt","Spaetzle geschabt","Basilikum","Muscheln","Schweinerollbraten","Kasseler Kotelett","Schweineschnitzel","Wasser, heiss","Safran","Mandarinen","Gyros","Ananas","Emmentaler","Tung Koo","Paprikamark","Chinesische Chilisauce","Eier","Champignons, braun","Sojabohnen","Rotwein","Gewuerzgurkenwasser","Peperoncino","Remoulade","Suppengemuese","Macaroni","Ricotta","Rosmarin","Wasser","Blaetterteig","Margarine","Hefe","Scampi","Sonnenblumenkerne","Bandnudeln","Lasagne-Blaetter","Moehren","Muskat","Rinderfilet","Schmelzkaese","Sake","Spargel","Basilikum, getrocknet","Schollenfilet","Zucchini","Hackfleisch","Gabelspaghetti","Ananassaft","Spaetzle","Schinkenwuerfel","Tomatenpueree","Fett","Bacon","Hoernchennudeln","Joghurt","Zitronenscheiben","Wurzeln","Fruehstuecksspeck","Blumenkohl","Sojasprossen, frisch","Kapern","Tortellini","Saucenbinder","Risotto Reis","Bismarckhering","Rucola Salat","Entenbrust","Eiswasser","Sojaoel","Kidneybohnen","Minutensteak","Fruehlingszwiebeln","Pastasauce Napoli","Quark","Lauchzwiebeln","Liebstoeckel","Weisswein","Schweineschmalz","Meeresfruechte","Tomatenmark","Boursin","Sardellenfilets","Putenfilet","Honig","Orangensaft","Parmesan","Selleriesalz","Pfeffer aus der Muehle","Gouda","Kresse","Estragon","Chilischote, getrocknet","Tomaten","Kalbsgulasch","Krabben","Edamer","Schinkenkrustenbraten","Dill","Broccoli","Cannelloni","Dickmilch","Weisse Bohnen","Entrecôte Steak","Milch","Mandeln","saure Sahne","Prosecco","Cocktailsauce","Bruehe, instant","Kartoffeln, mehligkochend","Karotten","Cocktailtomaten","Kokosmilch","Cognac","Rinderschmorbraten","Schmetterlingssteak","Kurkuma","Oliven, schwarz","Austernsauce","Bergkaese","Perlzwiebeln","Olivenoel","Putensteaks","Mexiko Gemuesepfanne","Orangenschale","Zuckererbsenschoten","Pfefferkoerner gruen","Roastbeef Braten","Toast","Spaghetti","Speisestaerke","Pak Choi","Paprika, rot","Eisbergsalat","Krebspaste","Pommes frites","Ingwerpulver","Kalbsschnitzel","Erdnussoel","Roastbeef","Paprikapulver","Chiliflocken","Cappelletti","Rinderhack","Mischpilze, getrocknet","Limonenscheibe","Fuenf-Gewuerz","Aubergine","Peperoni, eingelegt","Schweinesteak","Thymianzweige","Fischsauce","Mandeln, gehackt","Steinpilze, getrocknet","Ketchup","Gorgonzola","Nackensteak","Huhn","Lachs","Cayennepfeffer","Fleischsalat","Hoehlenkaese","Preiselbeergelee","Zitronensaft","Schweinerouladen","Sojasauce","Mailaender Salami","Speck, weiss","Staudensellerie","Raclette Kaese","Rohrzucker, braun","Quittengelee","Schweinenacken","Madeirawein","Koriander, frisch","Majoran","Wacholderbeeren","gekochter Schinken","Hummer-Paste","Salbei","Petersilienwurzel","Tintenfisch","Zitronenschale","Salz","Reis","Venusmuscheln","Cabanossi","Zitronengras, frisch","Pfifferlinge","Pfefferkoerner, schwarz","Chilischote","Mais","Preiselbeeren","Petersilie","Romanesco","Limone","Haehnchenkeulen","Sonnenblumenoel","Hohe Rippe","Zwiebel, weiss","Frischkaese mit Kraeutern","Bio Ei","Muskatnuss","Sahne","Parmesan, frisch","Sellerie","Roestzwiebeln","Ungarische Salami","Tabasco","Paprika, gelb","Petersilie, glatt","Eigelb","Tofu","Ajwar","Scampis","Cherrytomaten","Zwiebeln","Pfeffer, weiss","Bier","Tomatenwuerfel","Bruehe","Kartoffeln, festkochend","Erbsen, frisch","Eiernudeln, Mie","Huehnerbruehe","Farfalle","Karbonade","Schweinebacke geraeuchert","Artischockenherzen","Schweineschulter","Gnocchi","Mehl","Gruene Bohnen","Baby-Moehren","getrocknete Tomaten","Gemuesezwiebel","Zwiebeln, rot","Jaegersauce, instant","Fettuccine","Fenchel","Karpfen","Creme légère","Bambussprossen","Tomaten, Dose","Muschelnudeln","Oregano","Seelachsfilet","Penne","Worcester Sauce","Kraeuter der Provence","Haselnuesse, gehackt","Artischocken","Thunfisch","Spinat","Krautsalat","Fladenbrot","Kotelett","Mozzarella","Paniermehl","Mascarpone"};
+	private static final String[] Categories = new String[] {"kg", "g", "ml", "L", "Stück", "Dose"};
 	private AutoCompleteTextView name;
 	private EditText einheit;
 	private Spinner spinner;
@@ -76,8 +81,10 @@ public class NeueZutat extends Activity {
 	private ProgressBar pb;
 	private String barcode, nameEAN, hersteller, ean;
 	private Boolean vorhanden = false;
+	private Typeface font, font_bold;
+	private TextView tv_zutat_name;
 	ImageView iv_zutat_picture;
-	
+	MainSpinnerAdapter msp_Cat;
 	private ArrayList<Zutat> zutaten;
 
 	ParseUser cUser;
@@ -88,11 +95,26 @@ public class NeueZutat extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_neuezutat);		
 		referenceUIElements();
+		setFonts() ;
 		initParse();
 		getUserData();
 		onClickListener();
 		textChangedListener();		
 	}
+	
+	private void setFonts() {
+		font_bold = Typeface.createFromAsset(getAssets(), "fonts/font_bold.ttf");
+		font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
+		name.setTypeface(font_bold);
+		insert.setTypeface(font_bold);
+		einheit.setTypeface(font_bold);
+		scan.setTypeface(font_bold);
+		tv_zutat_name.setTypeface(font_bold);
+		msp_Cat = new MainSpinnerAdapter(this, Categories, font_bold, R.layout.layout_main_spinner_style, R.id.tv_main_spinner_style);
+		spinner.setAdapter(msp_Cat);
+		
+	}
+
 
 	private void getUserData(){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("UserData");
@@ -119,13 +141,13 @@ public class NeueZutat extends Activity {
 				vorhanden = false;
 				if(name.getText().toString().length()>0&&einheit.getText().toString().length()>0){
 					for(int m = 0; m < zutaten.size(); m++){
-	        			if(zutaten.get(m).getName().equals(name.getText().toString())&&zutaten.get(m).getEinheit().equals(spinner.getSelectedItem().toString())){
+	        			if(zutaten.get(m).getName().equals(name.getText().toString())&&zutaten.get(m).getEinheit().equals(Categories[(Integer) spinner.getSelectedItem()])){
 	        				vorhanden = true;
 	        				zutaten.get(m).addMenge( Double.parseDouble(einheit.getText().toString()));
 	        			}
 	        		}
 	        		if(!vorhanden){
-	        			Zutat newZutat = new Zutat (name.getText().toString(), Double.parseDouble(einheit.getText().toString()), spinner.getSelectedItem().toString());
+	        			Zutat newZutat = new Zutat (name.getText().toString(), Double.parseDouble(einheit.getText().toString()), Categories[(Integer) spinner.getSelectedItem()]);
 	        			zutaten.add(newZutat);
 	        		}
 	        		deleteOldDatabase();
@@ -222,17 +244,19 @@ public class NeueZutat extends Activity {
       }
 	
 	private void referenceUIElements() {
-		spinner = (Spinner) findViewById(R.id.spinner2);
+		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Zutaten);
+		
+		spinner = (Spinner) findViewById(R.id.spinner2);		
 		name = (AutoCompleteTextView) findViewById(R.id.zutat);
 		iv_zutat_picture = (ImageView) findViewById (R.id.iv_zutat_picture);
 		name.setAdapter(adapter);
+		tv_zutat_name = (TextView) findViewById (R.id.tv_zutat_name);
 		insert = (Button) findViewById (R.id.zutatHinzufuegenButton);
 		einheit = (EditText) findViewById (R.id.ed_neueZutat_Menge);
 		scan = (Button) findViewById (R.id.scanButton);
 		pb = (ProgressBar) findViewById (R.id.pb_neueZutat);
 		pb.setVisibility(View.INVISIBLE);
-		iv_zutat_picture.setVisibility(View.INVISIBLE);
 		zutaten = new ArrayList<Zutat>();
 		
 	}
@@ -266,6 +290,8 @@ public class NeueZutat extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		ActionBar actionBar = getActionBar();
+		actionBar.setIcon(R.drawable.ic_menu);
 		return true;
 	}
 	
@@ -365,7 +391,9 @@ public class NeueZutat extends Activity {
     }
     
     private void setImage(Drawable drawable){
-    	iv_zutat_picture.setImageDrawable(drawable);
+    	if(drawable!=null){
+    		iv_zutat_picture.setImageDrawable(drawable);
+    	}
     }
 
 	public class DownloadImage extends AsyncTask<String, Integer, Drawable> {
@@ -376,7 +404,6 @@ public class NeueZutat extends Activity {
 	    }
 	
 	    protected void onPostExecute(Drawable image){
-	    	iv_zutat_picture.setVisibility(View.VISIBLE);
 	        setImage(image);
 	    }
 	

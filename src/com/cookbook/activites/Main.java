@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 
+import com.cookbook.classes.MainSpinnerAdapter;
 import com.cookbook.classes.Zutat;
 import com.example.cookbook.R;
 import com.example.cookbook.R.layout;
@@ -21,11 +22,13 @@ import com.parse.ParseUser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 import android.view.Menu;
@@ -42,6 +45,7 @@ import android.widget.Toast;
 
 public class Main extends Activity {
 
+	private static final String[] Categories = new String[] {"Alle Kategorien", "Fleisch", "Vegetarisch", "Pasta", "Fisch", "Gefluegel", "Salate", "Auflauf", "Suppen und Eintoepfe",};
 	private Button toNeueZutat, toAlleRezepte, toMeinSchrank;
 	private List<ParseObject> todos;
 	private Spinner spinner;
@@ -51,7 +55,10 @@ public class Main extends Activity {
 	ArrayList<String> friends;
 	private ArrayList<Zutat> zutaten;
 	
+	private Typeface font, font_bold;
+	MainSpinnerAdapter msp;
 	Boolean zutatVorhanden;
+	
 	
 	ParseUser cUser;
 	String currentUser;
@@ -66,6 +73,7 @@ public class Main extends Activity {
 		
 		initParse();
 		referenceUIElements();
+		setFonts();
 		
 		hasFriends();
 		
@@ -73,6 +81,17 @@ public class Main extends Activity {
 		aktuList("Alle Kategorien");
 		
 		spinnerListener();		
+	}
+
+	private void setFonts() {
+		font_bold = Typeface.createFromAsset(getAssets(), "fonts/font_bold.ttf");
+		font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
+		toNeueZutat.setTypeface(font_bold);
+		toAlleRezepte.setTypeface(font_bold);
+		toMeinSchrank.setTypeface(font_bold);	
+		msp = new MainSpinnerAdapter(this, Categories, font_bold, R.layout.layout_main_spinner_style, R.id.tv_main_spinner_style);
+		spinner.setAdapter(msp);
+		
 	}
 
 	public void onResume(){
@@ -167,7 +186,8 @@ public class Main extends Activity {
 			@Override
         	public void  onItemSelected(AdapterView<?> parent, View view, int position, long id){
 			
-				selectedSpinner = (parent.getItemAtPosition(position)).toString();	
+				selectedSpinner = (Categories[position]).toString();
+				Log.e("", selectedSpinner);
 				aktuList(selectedSpinner);
 				
 			}
@@ -247,6 +267,8 @@ public class Main extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		ActionBar actionBar = getActionBar();
+		actionBar.setIcon(R.drawable.ic_menu);
 		return true;
 	}
 }

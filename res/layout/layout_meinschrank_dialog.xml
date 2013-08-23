@@ -10,7 +10,7 @@
         android:layout_centerInParent="true" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/tv_meinSchrank_dialog_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -38,25 +38,31 @@
                 android:id="@+id/ed_neueZutat_Menge"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/sp_meinSchrank_Dialog_Spinner"
-                android:ems="10" />
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/relativeLayout1"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/relativeLayout2"
-            android:layout_below="@+id/textView1" >
+            android:layout_below="@+id/tv_meinSchrank_dialog_main"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom" >
 
             <AutoCompleteTextView
                 android:id="@+id/ed_meinschrank_dialog_artikel"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
                 android:ems="10"
+                android:gravity="bottom"
                 android:hint="Artikelname"
                 android:imeOptions="actionNext"
                 android:lines="1"
@@ -64,7 +70,7 @@
 
             <Button
                 android:id="@+id/bt_meinSchrank_dialog_speichern"
-                android:layout_width="wrap_content"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"

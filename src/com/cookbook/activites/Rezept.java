@@ -26,6 +26,7 @@ import com.parse.ParseUser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -148,6 +149,8 @@ public class Rezept extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		ActionBar actionBar = getActionBar();
+		actionBar.setIcon(R.drawable.ic_menu);
 		return true;
 	}
 	

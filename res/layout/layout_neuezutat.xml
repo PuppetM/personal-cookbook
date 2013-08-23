@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android1:background="@drawable/bg" >
+    android1:background="@drawable/bg"
+    android1:gravity="bottom" >
 
     <LinearLayout
         android1:layout_width="match_parent"
@@ -13,17 +14,20 @@
         <RelativeLayout
             android1:layout_width="match_parent"
             android1:layout_height="wrap_content"
-            android1:gravity="center" >
+            android1:layout_gravity="bottom"
+            android1:gravity="bottom" >
 
             <TextView
                 android1:id="@+id/tv_zutat_name"
                 android1:layout_width="wrap_content"
                 android1:layout_height="wrap_content"
+                android1:layout_centerHorizontal="true"
                 android1:layout_marginBottom="15dp"
-                android1:layout_marginTop="25dp"
+                android1:layout_marginTop="50dp"
                 android1:text="Zutat hinzufügen"
                 android1:textAppearance="?android:attr/textAppearanceLarge"
                 android1:textSize="30dp" />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -34,19 +38,20 @@
             <ImageView
                 android1:id="@+id/iv_zutat_picture"
                 android1:layout_width="200dp"
-                android1:layout_height="200dp"
-                android1:src="@drawable/ic_launcher" />
+                android1:layout_height="180dp"
+                android1:src="@drawable/icon" />
         </RelativeLayout>
 
         <RelativeLayout
             android1:layout_width="260dp"
-            android1:layout_height="wrap_content"
+            android1:layout_height="50dp"
             android1:layout_gravity="center" >
 
             <AutoCompleteTextView
                 android1:id="@+id/zutat"
                 android1:layout_width="150dp"
                 android1:layout_height="wrap_content"
+                android1:layout_alignParentBottom="true"
                 android1:layout_alignParentLeft="true"
                 android1:layout_alignParentTop="true"
                 android1:ems="10"
@@ -58,9 +63,10 @@
             <Button
                 android1:id="@+id/scanButton"
                 android1:layout_width="110dp"
-                android1:layout_height="wrap_content"
+                android1:layout_height="20dp"
+                android1:layout_alignParentBottom="true"
+                android1:layout_alignParentRight="true"
                 android1:layout_alignParentTop="true"
-                android1:layout_toRightOf="@+id/zutat"
                 android1:text="Scan" />
 
         </RelativeLayout>
@@ -73,14 +79,19 @@
             <RelativeLayout
                 android1:layout_width="match_parent"
                 android1:layout_height="match_parent"
+                android1:layout_alignBottom="@+id/spinner2"
                 android1:layout_toLeftOf="@+id/spinner2" >
 
                 <EditText
                     android1:id="@+id/ed_neueZutat_Menge"
-                    android1:layout_width="70dp"
+                    android1:layout_width="80dp"
                     android1:layout_height="wrap_content"
+                    android1:layout_alignParentBottom="true"
                     android1:layout_alignParentRight="true"
-                    android1:layout_alignParentTop="true" />
+                    android1:hint="Menge" >
+
+                    <requestFocus />
+                </EditText>
 
             </RelativeLayout>
 

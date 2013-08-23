@@ -19,11 +19,13 @@ import com.parse.SignUpCallback;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 import android.view.Menu;
@@ -44,6 +46,7 @@ public class Register extends Activity {
 	TextView tv_register_benutzer, tv_register_passwort;
 	Button bt_register_register;
 	EditText ed_register_benutzer, ed_register_passwort;
+	private Typeface font, font_bold;
 	
 	
 	
@@ -54,6 +57,7 @@ public class Register extends Activity {
 		
 		initParse();
 		referenceUIElements();	
+		setFonts();
 		
 		currentUser();
 		
@@ -61,6 +65,16 @@ public class Register extends Activity {
 		
 	}
 	
+	private void setFonts() {
+		font_bold = Typeface.createFromAsset(getAssets(), "fonts/font_bold.ttf");
+		font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
+		tv_register_benutzer.setTypeface(font_bold);
+		tv_register_passwort.setTypeface(font_bold);
+		bt_register_register.setTypeface(font_bold);
+		ed_register_benutzer.setTypeface(font);
+		ed_register_passwort.setTypeface(font);
+	}
+
 	private void currentUser() {
 		ParseUser currentUser = ParseUser.getCurrentUser();
 		if (currentUser != null) {
@@ -131,6 +145,8 @@ public class Register extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		ActionBar actionBar = getActionBar();
+		actionBar.setIcon(R.drawable.ic_menu);
 		return true;
 	}
 	

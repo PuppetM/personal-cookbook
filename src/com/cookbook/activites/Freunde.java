@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cookbook.classes.CustomAdapter;
 import com.cookbook.classes.FreundeSimpleArrayAdapter;
+import com.cookbook.classes.MainSpinnerAdapter;
 import com.cookbook.classes.Zutat;
 import com.example.cookbook.R;
 import com.parse.FindCallback;
@@ -17,6 +18,7 @@ import com.parse.ParseUser;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -33,8 +35,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 
 
 public class Freunde extends Activity {
@@ -53,6 +57,7 @@ public class Freunde extends Activity {
 	String freund;
 	
 	private ArrayList<Zutat> zutaten;
+	private Typeface font, font_bold;
 	
 	Boolean isUser = false;
 	Boolean isNotFriend = false;
@@ -72,6 +77,7 @@ public class Freunde extends Activity {
 		
 		referenceUIElements();
 		initParse();
+		setFonts();
 		
 		getAllUsers();
 		
@@ -257,7 +263,7 @@ public class Freunde extends Activity {
 	
 	private void setBackground(){
 		if(friends.size()<1){
-	    	   freunde.setBackgroundResource(R.drawable.freundebg);
+	    	   freunde.setBackgroundResource(R.drawable.bg_nofriends);
 	    }else{
 	    	   freunde.setBackgroundResource(R.drawable.bg);
 	    }	
@@ -345,7 +351,14 @@ public class Freunde extends Activity {
 		zutaten = new ArrayList<Zutat>();
 		users = new ArrayList<String>();
 		friends = new ArrayList<String>();
-		adapter = new FreundeSimpleArrayAdapter(this, friends);
+	}
+	
+	private void setFonts() {
+		font_bold = Typeface.createFromAsset(getAssets(), "fonts/font_bold.ttf");
+		font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
+		ed_freunde_freund.setTypeface(font);
+		bt_freunde_befreunden.setTypeface(font_bold);
+		adapter = new FreundeSimpleArrayAdapter(this, friends, font_bold);
 		lv_freunde.setAdapter(adapter);
 	}
 
@@ -355,6 +368,15 @@ public class Freunde extends Activity {
 		ParseUser.enableAutomaticUser();
 		cUser = ParseUser.getCurrentUser();
 		currentUser = cUser.get("username").toString();		
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		ActionBar actionBar = getActionBar();
+		actionBar.setIcon(R.drawable.ic_menu);
+		return true;
 	}
 }
 	

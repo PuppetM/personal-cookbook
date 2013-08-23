@@ -7,7 +7,7 @@
 
     <LinearLayout
         android1:id="@+id/linearLayout2"
-        android1:layout_width="220dp"
+        android1:layout_width="240dp"
         android1:layout_height="wrap_content"
         android1:layout_centerInParent="true" >
 
@@ -16,6 +16,8 @@
             android1:layout_width="wrap_content"
             android1:layout_height="wrap_content"
             android1:layout_weight="5.30"
+            android1:gravity="right"
+            android1:textSize="18sp" 
             android1:text="Passwort:" />
 
         <EditText
@@ -32,11 +34,12 @@
         android1:layout_alignLeft="@+id/linearLayout2"
         android1:layout_alignRight="@+id/linearLayout2"
         android1:layout_below="@+id/linearLayout2"
+        android1:layout_marginTop="10dp"
         android1:text="Registrieren" />
 
     <LinearLayout
         android1:id="@+id/linearLayout1"
-        android1:layout_width="220dp"
+        android1:layout_width="240dp"
         android1:layout_height="wrap_content"
         android1:layout_above="@+id/linearLayout2"
         android1:layout_centerHorizontal="true" >
@@ -45,7 +48,9 @@
             android1:id="@+id/tv_register_benutzer"
             android1:layout_width="wrap_content"
             android1:layout_height="wrap_content"
+            android1:gravity="right"
             android1:layout_weight="2.60"
+            android1:textSize="18sp" 
             android1:text="Benutzer:" />
 
         <EditText
@@ -57,11 +62,11 @@
 
     <ImageView
         android1:id="@+id/imageView1"
-        android1:layout_width="200dp"
-        android1:layout_height="150dp"
-        android1:layout_alignParentTop="true"
+        android1:layout_width="300dp"
+        android1:layout_height="200dp"
+        android1:layout_above="@+id/linearLayout1"
         android1:layout_centerHorizontal="true"
-        android1:layout_marginTop="20dp"
+        android1:layout_marginBottom="10dp"
         android1:src="@drawable/icon" />
 
 </RelativeLayout>

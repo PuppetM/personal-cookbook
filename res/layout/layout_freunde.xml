@@ -8,8 +8,10 @@
         android:id="@+id/ed_freunde_freund"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/lv_freunde"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/pb_freunde"
         android:ems="10"
         android:hint="Name des Freundes"
         android:inputType="textPersonName" >
@@ -17,20 +19,16 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/bt_freunde_befreunden"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ed_freunde_freund"
-        android:text="Datenbank mit Freund verknüpfen" />
-
     <ListView
         android:id="@+id/lv_freunde"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/bt_freunde_befreunden" >
+        android:layout_below="@+id/bt_freunde_befreunden"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp" >
+
     </ListView>
 
     <ProgressBar
@@ -38,5 +36,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
+
+    <Button
+        android:id="@+id/bt_freunde_befreunden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/ed_freunde_freund"
+        android:text="Befreunden" />
 
 </RelativeLayout>

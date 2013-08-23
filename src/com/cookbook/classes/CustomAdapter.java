@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,13 +37,16 @@ public class CustomAdapter extends BaseAdapter{
     private String[] data;
     private static LayoutInflater inflater=null;
     public ImageLoader imageLoader; 
+    private Typeface font, font_bold;
 
  
-    public CustomAdapter(Activity a, ArrayList<Zutat> entries) {
+    public CustomAdapter(Activity a, ArrayList<Zutat> entries, Typeface font, Typeface font_bold) {
 		activity = a;
 	    this.entries = entries;
 	    inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = new ImageLoader (activity.getApplicationContext());        
+        imageLoader = new ImageLoader (activity.getApplicationContext());  
+        this.font = font;
+        this.font_bold = font_bold;
 	  }
 
 	@Override
@@ -72,8 +76,11 @@ public class CustomAdapter extends BaseAdapter{
 	        
 	        ImageView iv_zutat_picture =(ImageView)vi.findViewById(R.id.iv_zutat_picture);
 	        TextView tv_zutat_einheit =(TextView)vi.findViewById(R.id.tv_zutat_einheit);
+	        tv_zutat_einheit.setTypeface(font);
 	        TextView tv_zutat_menge =(TextView)vi.findViewById(R.id.tv_zutat_menge);
+	        tv_zutat_menge.setTypeface(font);
 	        TextView tv_zutat_name =(TextView)vi.findViewById(R.id.tv_zutat_name);
+	        tv_zutat_name.setTypeface(font_bold);
 	        
 	        tv_zutat_name.setText(entries.get(position).getName());
 	        tv_zutat_menge.setText(entries.get(position).getMenge().toString());

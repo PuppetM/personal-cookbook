@@ -1,24 +1,63 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="80dp" >
     
      <ImageView
          android:id="@+id/iv_alleRezepte_icon"
          android:layout_width="80dp"
          android:layout_height="60dp"
          android:layout_centerVertical="true"
+         android:layout_marginBottom="5dp"
          android:layout_marginLeft="10dp"
+         android:layout_marginRight="10dp"
+         android:layout_marginTop="5dp"
          android:src="@drawable/freund" />
 
-        <TextView
-            android:id="@+id/tv_alleRezepte_liste"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/iv_alleRezepte_icon"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="16sp" />
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_centerVertical="true"
+         android:layout_marginBottom="2dp"
+         android:layout_marginRight="10dp"
+         android:layout_marginTop="2dp"
+         android:layout_toRightOf="@+id/iv_alleRezepte_icon" >
+
+         <LinearLayout
+             android:id="@+id/linearLayout1"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_alignParentTop="true"
+             android:orientation="vertical" >
+
+             <TextView
+                 android:id="@+id/tv_alleRezepte_liste_name"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Medium Text"
+                 android:textAppearance="?android:attr/textAppearanceMedium"
+                 android:textSize="15sp" />
+
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" >
+
+                 <TextView
+                     android:id="@+id/tv_alleRezepte_liste_dauer"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="bottom"
+                     android:layout_marginRight="20dp"
+                     android:text="TextView" />
+
+                 <TextView
+                     android:id="@+id/tv_meinSchrank_dialog_main"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="bottom"
+                     android:text="TextView" />
+             </LinearLayout>
+         </LinearLayout>
+
+     </RelativeLayout>
 
 </RelativeLayout>

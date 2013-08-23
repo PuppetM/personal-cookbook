@@ -17,4 +17,5 @@
 
 		<color name="custom_button">#7A5E51</color>
 		 <color name="custom_button_pressed">#7A2021</color>
+		 <color name="pressed_apptheme">#7A2021</color>
 </resources>

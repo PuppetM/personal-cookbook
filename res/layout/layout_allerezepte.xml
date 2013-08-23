@@ -13,41 +13,56 @@
         android1:layout_below="@+id/sp_allerezepte_spinner"
         android1:layout_marginLeft="10dp"
         android1:layout_marginRight="10dp" >
-
     </ListView>
 
     <LinearLayout
-        android1:id="@+id/linearLayout1"
-        android1:layout_width="match_parent"
+        android1:id="@+id/linearLayout2"
+        android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
-        android:focusable="true" 
-        android:focusableInTouchMode="true"
-        android1:orientation="vertical" >
+         android1:focusable="true" 
+         android1:focusableInTouchMode="true"
+        android1:layout_alignLeft="@+id/sp_allerezepte_spinner"
+        android1:layout_alignRight="@+id/sp_allerezepte_spinner"
+        android1:layout_marginTop="10dp" >
 
-        <EditText
-            android1:id="@+id/ed_allerezepte_search"
+        <TextView
+            android1:id="@+id/tv_allerezepte_suchbegriff"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:layout_gravity="center_vertical|right"
+            android1:layout_marginLeft="10dp"
+            android1:text="Suchbegriff: "
+            android1:textSize="16sp" />
+
+        <LinearLayout
+            android1:id="@+id/linearLayout1"
             android1:layout_width="match_parent"
             android1:layout_height="wrap_content"
-            android1:layout_marginBottom="5dp"
-            android1:layout_marginLeft="10dp"
-            android1:layout_marginRight="10dp"
-            android1:layout_marginTop="5dp"
-            android:lines="1"
-            android:focusable="true" 
-            android:hint="Suche"
-            android:nextFocusLeft="@id/ed_allerezepte_search"
-            android:nextFocusUp="@id/ed_allerezepte_search"
-            android1:ems="10" />
+            android1:orientation="vertical" >
 
+            <EditText
+                android1:id="@+id/ed_allerezepte_search"
+                android1:layout_width="match_parent"
+                android1:layout_height="wrap_content"
+                android1:ems="10"
+                android1:focusable="true"
+                android1:hint="Suche"
+                android1:lines="1"
+                android1:nextFocusLeft="@id/ed_allerezepte_search"
+                android1:nextFocusUp="@id/ed_allerezepte_search" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
     </LinearLayout>
 
     <Spinner
         android1:id="@+id/sp_allerezepte_spinner"
         android1:layout_width="match_parent"
         android1:layout_height="wrap_content"
-        android1:layout_alignParentLeft="true"
-        android1:layout_below="@+id/linearLayout1"
-        android1:layout_marginBottom="5dp"
+        android1:layout_alignParentRight="true"
+        android1:layout_below="@+id/linearLayout2"
+        android1:layout_marginBottom="10dp"
         android1:layout_marginLeft="10dp"
         android1:layout_marginRight="10dp"
         android1:entries="@array/kategorien" />

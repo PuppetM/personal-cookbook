@@ -43,7 +43,8 @@
          android1:layout_height="wrap_content"
          android1:layout_above="@+id/footerlayout"
          android1:layout_alignParentLeft="true"
-         android1:layout_alignParentTop="true" >
+         android1:layout_alignParentTop="true"
+         android1:layout_marginTop="10dp" >
 
      </ListView>
 

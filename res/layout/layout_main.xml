@@ -21,8 +21,7 @@
         android1:layout_marginBottom="5dp"
         android1:layout_marginLeft="5dp"
         android1:layout_marginRight="5dp"
-        android:entries="@array/kategorien"
-        android1:layout_marginTop="5dp" />
+        android:entries="@array/kategorien" />
     
     <ListView
         android1:id="@+id/rezepteDatenbankListe"

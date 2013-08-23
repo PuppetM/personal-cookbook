@@ -13,7 +13,7 @@
         android1:layout_toRightOf="@+id/iv_zutat_picture"
         android1:text="Medium Text"
         android1:textAppearance="?android:attr/textAppearanceMedium"
-        android1:textSize="14sp" />
+        android1:textSize="16sp" />
 
     <ImageView
         android1:id="@+id/iv_zutat_picture"

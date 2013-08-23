@@ -8,6 +8,7 @@ import java.util.Random;
 
 
 import com.cookbook.classes.CustomAdapter;
+import com.cookbook.classes.MainSpinnerAdapter;
 import com.cookbook.classes.Zutat;
 import com.example.cookbook.R;
 import com.example.cookbook.R.layout;
@@ -23,6 +24,7 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -30,6 +32,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
@@ -59,6 +62,7 @@ public class MeinSchrank extends Activity {
 
 
 	private ArrayList<Zutat> zutaten;
+	private static final String[] Categories = new String[] {"kg", "g", "ml", "L", "Stück", "Dose"};
 	
 	ArrayList<String> zutaten_name;
 	ArrayList<String> zutaten_einheit;
@@ -70,6 +74,7 @@ public class MeinSchrank extends Activity {
 	private CustomAdapter adapter;
 	Button bu_datenbank_verknüpfen, bt_meinSchrank_neueZutat;
 	Dialog dialog;
+	MainSpinnerAdapter msp_Cat;
 	
 	ProgressBar pb_meinSchrank;
 	
@@ -80,6 +85,7 @@ public class MeinSchrank extends Activity {
 	String currentUser, friend;
 	String id;
 	final Context context = this;
+	private Typeface font, font_bold;
 	Boolean getUser = false;
 	Boolean alreadyFriend = false;
 	Boolean userHasFriends = false;
@@ -92,6 +98,7 @@ public class MeinSchrank extends Activity {
 		
 		referenceUIElements();
 		initParse();
+		setFonts();
 		
 		hasFriends();		
 		
@@ -152,21 +159,25 @@ public class MeinSchrank extends Activity {
 				if(userHasFriends){
 					Toast toast = Toast.makeText(context, "Daten können nur geändert werden, wenn keine Verbindung zu anderen Datenbanken besteht!", Toast.LENGTH_LONG);
 					toast.show();										
-				}else{
-					
+				}else{					
 					dialog = new Dialog(MeinSchrank.this, R.style.ThemeDialogCustom) ;		
 					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 					dialog.getWindow().setBackgroundDrawable(new ColorDrawable(34));
-					dialog.setContentView(R.layout.layout_meinschrank_dialog);	
-					
+					dialog.setContentView(R.layout.layout_meinschrank_dialog);						
 					final EditText ed_meinschrank_dialog_artikel = (EditText) dialog.findViewById (R.id.ed_meinschrank_dialog_artikel);
 					final EditText ed_meinSchrank_Dialog_Menge = (EditText) dialog.findViewById (R.id.ed_neueZutat_Menge);
 					final Spinner sp_meinSchrank_Dialog_Spinner = (Spinner) dialog.findViewById (R.id.sp_meinSchrank_Dialog_Spinner);
 					final Button bt_meinSchrank_dialog_speichern = (Button) dialog.findViewById (R.id.bt_meinSchrank_dialog_speichern);
-					
+					final TextView tv_meinSchrank_dialog_main = (TextView) dialog.findViewById (R.id.tv_meinSchrank_dialog_main);
+					tv_meinSchrank_dialog_main.setTypeface(font_bold);			
+					ed_meinschrank_dialog_artikel.setTypeface(font);
+					ed_meinSchrank_Dialog_Menge.setTypeface(font);
+					bt_meinSchrank_dialog_speichern.setTypeface(font_bold);
 					ed_meinschrank_dialog_artikel.setText(zutaten.get(arg2).getName());
 					ed_meinSchrank_Dialog_Menge.setText(zutaten.get(arg2).getMenge().toString());
-					String get = zutaten.get(arg2).getEinheit();				
+					String get = zutaten.get(arg2).getEinheit();	
+					msp_Cat = new MainSpinnerAdapter(MeinSchrank.this, Categories, font_bold,R.layout.layout_main_spinner_style, R.id.tv_main_spinner_style);
+					sp_meinSchrank_Dialog_Spinner.setAdapter(msp_Cat);
 					
 					if(get.equals("kg")){
 						sp_meinSchrank_Dialog_Spinner.setSelection(0);
@@ -180,21 +191,19 @@ public class MeinSchrank extends Activity {
 						sp_meinSchrank_Dialog_Spinner.setSelection(4);
 					}else if(get.equals("Dose")){
 						sp_meinSchrank_Dialog_Spinner.setSelection(5);
-					}				
-					
+					}									
 					bt_meinSchrank_dialog_speichern.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
 							zutaten.remove(arg2);					
-							Zutat newZutat = new Zutat (ed_meinschrank_dialog_artikel.getText().toString(),Double.parseDouble(ed_meinSchrank_Dialog_Menge.getText().toString()),sp_meinSchrank_Dialog_Spinner.getSelectedItem().toString());
+							Zutat newZutat = new Zutat (ed_meinschrank_dialog_artikel.getText().toString(),Double.parseDouble(ed_meinSchrank_Dialog_Menge.getText().toString()),Categories[(Integer) sp_meinSchrank_Dialog_Spinner.getSelectedItem()]);
 			    			zutaten.add(newZutat);
 			    			adapter.notifyDataSetChanged();	
 			    			dialog.cancel();
 			    			deleteOldDatabase();		    			
 						}
-					});					
-	    			
-				 	dialog.show();
+					});		
+					dialog.show();
 				 	
 				}
 			}			
@@ -207,6 +216,15 @@ public class MeinSchrank extends Activity {
 		adapter.notifyDataSetChanged();	
 		pb_meinSchrank.setVisibility(View.VISIBLE);
 		hasFriends();	
+	}
+	
+	private void setFonts(){
+		font_bold = Typeface.createFromAsset(getAssets(), "fonts/font_bold.ttf");
+		font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
+		bu_datenbank_verknüpfen.setTypeface(font_bold);
+		bt_meinSchrank_neueZutat.setTypeface(font_bold);
+		adapter = new CustomAdapter(this,zutaten, font, font_bold);
+		lv_mein_schrank.setAdapter(adapter);
 	}
 	
 	private void deleteOldDatabase(){
@@ -250,7 +268,7 @@ public class MeinSchrank extends Activity {
 		        			zutaten.add(newZutat);
 			        	}
 			        } else {
-			        	meinSchrank.setBackgroundResource(R.drawable.meinschrankbg);
+			        	meinSchrank.setBackgroundResource(R.drawable.bg_nozutaten);
 			        }
 			    	pb_meinSchrank.setVisibility(View.INVISIBLE);
 			        adapter.notifyDataSetChanged();
@@ -269,7 +287,7 @@ public class MeinSchrank extends Activity {
 		        			zutaten.add(newZutat);
 			        	}
 			        } else {
-			        	meinSchrank.setBackgroundResource(R.drawable.meinschrankbg);
+			        	meinSchrank.setBackgroundResource(R.drawable.bg_nozutaten);
 			        }
 			    	pb_meinSchrank.setVisibility(View.INVISIBLE);
 			        adapter.notifyDataSetChanged();
@@ -325,12 +343,8 @@ public class MeinSchrank extends Activity {
 
 	private void referenceUIElements() {
 		zutaten = new ArrayList<Zutat>();
-		lv_mein_schrank = (ListView) findViewById(R.id.lv_mein_schrank);
-		
-		adapter = new CustomAdapter(this,zutaten);
-		
+		lv_mein_schrank = (ListView) findViewById(R.id.lv_mein_schrank);		
 		meinSchrank = (RelativeLayout) findViewById(R.id.meinSchrank);
-		lv_mein_schrank.setAdapter(adapter);
 		bu_datenbank_verknüpfen = (Button) findViewById(R.id.neueDatenbank);
 		bt_meinSchrank_neueZutat = (Button) findViewById(R.id.bt_meinSchrank_neueZutat);
 		zutaten_name = new ArrayList<String>();
@@ -344,6 +358,8 @@ public class MeinSchrank extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		ActionBar actionBar = getActionBar();
+		actionBar.setIcon(R.drawable.ic_menu);
 		return true;
 	}
 	

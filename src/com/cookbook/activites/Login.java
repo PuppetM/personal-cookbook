@@ -1,50 +1,36 @@
 package com.cookbook.activites;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.example.cookbook.R;
-import com.example.cookbook.R.layout;
-import com.example.cookbook.R.menu;
+import com.cookbook.classes.*;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
-
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.support.v4.app.FragmentTabHost;
-import android.util.Log;
+import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Login extends Activity {
 
-	TextView tv_login_benutzer, tv_login_passwort;
-	Button bt_login_login, bt_login_register;
-	EditText ed_login_benutzer, ed_login_passwort;
+	private TextView tv_login_benutzer, tv_login_passwort;
+	private Button bt_login_login, bt_login_register;
+	private EditText ed_login_benutzer, ed_login_passwort;
 	
+	private Typeface font, font_bold;
+	private ConnectionDetector cd;
 	
+	private Boolean isInternetPresent = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,36 +38,65 @@ public class Login extends Activity {
 		setContentView(R.layout.layout_login);	
 		
 		initParse();
-		referenceUIElements();	
-		
-		currentUser();
-		
-		onClickListener();
-		
+		referenceUIElements();
+		setFonts();		
+		currentUser();		
+		onClickListener();		
+	}
+	
+	private void setFonts() {
+		font_bold = Typeface.createFromAsset(getAssets(), "fonts/font_bold.ttf");
+		font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
+		tv_login_benutzer.setTypeface(font_bold);
+		tv_login_passwort.setTypeface(font_bold);
+		bt_login_login.setTypeface(font_bold);
+		bt_login_register.setTypeface(font_bold);
+		ed_login_benutzer.setTypeface(font);
+		ed_login_passwort.setTypeface(font);	
 	}
 	
 	private void currentUser() {
 		ParseUser currentUser = ParseUser.getCurrentUser();
 		if (currentUser != null) {
-		 
+			
 		} else {
 			Intent i = new Intent(Login.this,Main.class);
 			startActivity(i);
-		}
-		
+		}		
 	}
+	
 	private void onClickListener() {
 		bt_login_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				loginParse();
+				isInternetPresent = cd.isConnectingToInternet();
+                if (isInternetPresent) {
+                	loginParse();
+                } else {
+                	Context context = getApplicationContext();
+					CharSequence text = "Keine Internetverbindung!";
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+                }
 			}
 		});
 		bt_login_register.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Login.this,Register.class);
-				startActivity(i);
+				isInternetPresent = cd.isConnectingToInternet();
+                if (isInternetPresent) {
+                	Intent i = new Intent(Login.this,Register.class);
+    				startActivity(i);
+                } else {
+                	Context context = getApplicationContext();
+					CharSequence text = "Keine Internetverbindung!";
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+                }
 			}
 		});
 	}
@@ -109,8 +124,6 @@ public class Login extends Activity {
 		ParseAnalytics.trackAppOpened(getIntent());	
 		ParseUser.enableAutomaticUser();
 	}
-	
-	
 
 	private void referenceUIElements() {
 		tv_login_benutzer = (TextView) findViewById (R.id.tv_login_benutzer);
@@ -119,13 +132,15 @@ public class Login extends Activity {
 		bt_login_register= (Button) findViewById (R.id.bt_login_register);
 		ed_login_benutzer= (EditText) findViewById (R.id.ed_login_benutzer);
 		ed_login_passwort= (EditText) findViewById (R.id.ed_login_passwort);
-		
+		cd = new ConnectionDetector(getApplicationContext());		
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		ActionBar actionBar = getActionBar();
+		actionBar.setIcon(R.drawable.ic_menu);
 		return true;
 	}
 	
