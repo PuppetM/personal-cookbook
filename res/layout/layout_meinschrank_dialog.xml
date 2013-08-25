@@ -10,7 +10,7 @@
         android:layout_centerInParent="true" >
 
         <TextView
-            android:id="@+id/tv_meinSchrank_dialog_main"
+            android:id="@+id/tv_mein_schrank_dialog_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -27,7 +27,7 @@
             android:layout_centerHorizontal="true" >
 
             <Spinner
-                android:id="@+id/sp_meinSchrank_Dialog_Spinner"
+                android:id="@+id/sp_mein_schrank_dialog"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -35,12 +35,13 @@
                 android:entries="@array/einheiten" />
 
             <EditText
-                android:id="@+id/ed_neueZutat_Menge"
+                android:id="@+id/ed_mein_schrank_dialog_menge"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/sp_meinSchrank_Dialog_Spinner"
-                android:ems="10" >
+                android:layout_toLeftOf="@+id/sp_mein_schrank_dialog"
+                android:ems="10"
+                android:inputType="numberDecimal" >
 
                 <requestFocus />
             </EditText>
@@ -51,12 +52,12 @@
             android:id="@+id/relativeLayout1"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_meinSchrank_dialog_main"
+            android:layout_below="@+id/tv_mein_schrank_dialog_header"
             android:layout_centerHorizontal="true"
             android:gravity="bottom" >
 
             <AutoCompleteTextView
-                android:id="@+id/ed_meinschrank_dialog_artikel"
+                android:id="@+id/ed_mein_schrank_dialog_name"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -69,7 +70,7 @@
                 android:singleLine="true" />
 
             <Button
-                android:id="@+id/bt_meinSchrank_dialog_speichern"
+                android:id="@+id/bt_mein_schrank_dialog_save"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

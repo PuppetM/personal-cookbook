@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.cookbook.classes.ConnectionDetector;
 import com.example.cookbook.R;
 import com.example.cookbook.R.layout;
 import com.example.cookbook.R.menu;
@@ -36,6 +37,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -43,28 +45,30 @@ import android.widget.Toast;
 
 public class Register extends Activity {
 
-	TextView tv_register_benutzer, tv_register_passwort;
-	Button bt_register_register;
-	EditText ed_register_benutzer, ed_register_passwort;
+	private TextView tv_register_benutzer, tv_register_passwort;
+	private Button bt_register_register;
+	private EditText ed_register_benutzer, ed_register_passwort;
+	private ProgressBar pb_register;
+	
 	private Typeface font, font_bold;
 	
-	
+	private ConnectionDetector cd;	
+	private Boolean isInternetPresent = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_register);	
+		setContentView(R.layout.layout_register);
 		
 		initParse();
+		
 		referenceUIElements();	
-		setFonts();
+		setFonts();	
 		
-		currentUser();
-		
-		onClickListener();
-		
+		onClickListener();		
 	}
 	
+	//Setzts Fonts der Register-Activity
 	private void setFonts() {
 		font_bold = Typeface.createFromAsset(getAssets(), "fonts/font_bold.ttf");
 		font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
@@ -75,70 +79,67 @@ public class Register extends Activity {
 		ed_register_passwort.setTypeface(font);
 	}
 
-	private void currentUser() {
-		ParseUser currentUser = ParseUser.getCurrentUser();
-		if (currentUser != null) {
-		 
-		} else {
-			Intent i = new Intent(Register.this,Main.class);
-			startActivity(i);
-		}
-		
-	}
-
+	//Klick-Listener des Buttons "Registrierung"
 	private void onClickListener() {
 		bt_register_register.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(ed_register_benutzer.getText().toString().length()!=0&&ed_register_passwort.getText().toString().length()!=0){
-					registerParse();
-				}
+				isInternetPresent = cd.isConnectingToInternet();
+				//Überprüft auf Internetverbindung
+                if (isInternetPresent) {
+                	//Überprüft, ob alle Felder ausgefüllt worden sind
+                	if(ed_register_benutzer.getText().toString().length()!=0&&ed_register_passwort.getText().toString().length()!=0){
+						pb_register.setVisibility(View.VISIBLE);
+						registerParse();
+					}else{
+						Toast toast = Toast.makeText(getApplicationContext(), "Bitte alle Felder ausfüllen!", Toast.LENGTH_SHORT);
+						toast.show();
+					}
+                } else {
+                	Toast toast = Toast.makeText(getApplicationContext(), "Keine Internetverbindung!", Toast.LENGTH_LONG);
+					toast.show();
+                }					
 			}
 		});
 	}
 
+	//Registriert User auf Parse.com und gibt Feedback oder Fehlermeldung
 	private void registerParse() {
 		ParseUser user = new ParseUser();
 		user.setUsername(ed_register_benutzer.getText().toString());
-		user.setPassword(ed_register_passwort.getText().toString());
-		 
+		user.setPassword(ed_register_passwort.getText().toString());		
 		user.signUpInBackground(new SignUpCallback() {
 		  public void done(ParseException e) {
-		    if (e == null) {
-		    	Context context = getApplicationContext();
-				CharSequence text = "Registrierung erfolgreich";
-				int duration = Toast.LENGTH_LONG;
-
-				Toast toast = Toast.makeText(context, text, duration);
+			  pb_register.setVisibility(View.INVISIBLE);
+			  if (e == null) {
+				Toast toast = Toast.makeText(getApplicationContext(), "Registrierung erfolgreich", Toast.LENGTH_SHORT);
 				toast.show();
 		    	Intent i = new Intent(Register.this,Main.class);
 				startActivity(i);
-		    } else {
-		    	Context context = getApplicationContext();
-				CharSequence text = "Registrierung fehlgeschlagen";
-				int duration = Toast.LENGTH_LONG;
-
-				Toast toast = Toast.makeText(context, text, duration);
+			  }else {
+		    	Toast toast = Toast.makeText(getApplicationContext(), "Registrierung fehlgeschlagen", Toast.LENGTH_LONG);
 				toast.show();
-		    }
+			  }
 		  }
 		});
 	}
 
+	//Initalisiert Parse
 	private void initParse() {
 		Parse.initialize(this, "PXJakVYimXSoEUbQvyiNRIB3LzCbP0FEqFOM7NZD", "ms0stwKSjkAcbhuBFs3LOt0Qmjt50UZ3buElHYGm");
 		ParseAnalytics.trackAppOpened(getIntent());	
 		ParseUser.enableAutomaticUser();
 	}
-	
-	
 
 	private void referenceUIElements() {
 		tv_register_benutzer = (TextView) findViewById (R.id.tv_register_benutzer);
 		tv_register_passwort= (TextView) findViewById (R.id.tv_register_passwort);
 		bt_register_register= (Button) findViewById (R.id.bt_register_register);
 		ed_register_benutzer= (EditText) findViewById (R.id.ed_register_benutzer);
-		ed_register_passwort= (EditText) findViewById (R.id.ed_register_passwort);		
+		ed_register_passwort= (EditText) findViewById (R.id.ed_register_passwort);	
+		pb_register = (ProgressBar) findViewById (R.id.pb_register);
+		pb_register.setVisibility(View.INVISIBLE);
+		cd = new ConnectionDetector(getApplicationContext());	
 	}
 
 	@Override

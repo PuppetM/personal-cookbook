@@ -61,12 +61,18 @@
     </LinearLayout>
 
     <ImageView
-        android1:id="@+id/imageView1"
+        android1:id="@+id/iv_main_liste_icon"
         android1:layout_width="300dp"
         android1:layout_height="200dp"
         android1:layout_above="@+id/linearLayout1"
         android1:layout_centerHorizontal="true"
         android1:layout_marginBottom="10dp"
         android1:src="@drawable/icon" />
+
+    <ProgressBar
+        android1:id="@+id/pb_register"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_centerInParent="true" />
 
 </RelativeLayout>

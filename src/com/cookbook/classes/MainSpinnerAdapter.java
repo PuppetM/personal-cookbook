@@ -1,7 +1,5 @@
 package com.cookbook.classes;
 
-import com.example.cookbook.R;
-
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -10,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+
+//Spinner-Adapter
 public class MainSpinnerAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
@@ -19,7 +19,6 @@ public class MainSpinnerAdapter extends BaseAdapter {
     private int text;
 
     public MainSpinnerAdapter(Activity con, String[] Categories, Typeface font, int layout, int text) {
-        // TODO Auto-generated constructor stub
         mInflater = LayoutInflater.from(con);
         this.Categories = Categories;
         this.font = font;
@@ -29,25 +28,21 @@ public class MainSpinnerAdapter extends BaseAdapter {
 
 	@Override
     public int getCount() {
-        // TODO Auto-generated method stub
         return Categories.length;
     }
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         final ListContent holder;
         View v = convertView;
         if (v == null) {

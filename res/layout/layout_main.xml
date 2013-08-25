@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:android1="http://schemas.android.com/apk/res/android"
+    android1:id="@+id/mainLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
@@ -13,15 +14,6 @@
     android:layout_marginBottom="5dip"
     android:layout_marginTop="5dip"
     android1:orientation="vertical" >
-
-    <Spinner
-        android1:id="@+id/sp_allerezepte_spinner"
-        android1:layout_width="fill_parent"
-        android1:layout_height="wrap_content"
-        android1:layout_marginBottom="5dp"
-        android1:layout_marginLeft="5dp"
-        android1:layout_marginRight="5dp"
-        android:entries="@array/kategorien" />
     
     <ListView
         android1:id="@+id/rezepteDatenbankListe"

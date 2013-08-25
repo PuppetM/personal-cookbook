@@ -34,7 +34,6 @@ public class CustomAdapter extends BaseAdapter{
     
   	private final ArrayList<Zutat> entries;
   	private Activity activity;
-    private String[] data;
     private static LayoutInflater inflater=null;
     public ImageLoader imageLoader; 
     private Typeface font, font_bold;
@@ -51,35 +50,34 @@ public class CustomAdapter extends BaseAdapter{
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return entries.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 	
-	 public View getView(int position, View convertView, ViewGroup parent) {	    	
+	 @SuppressWarnings("deprecation")
+	public View getView(int position, View convertView, ViewGroup parent) {	    	
 	    	
 	    	View vi=convertView;
 	        if(convertView==null){
 	            vi = inflater.inflate(R.layout.layout_meinschrank_liste, null);
 	        }
 	        
-	        ImageView iv_zutat_picture =(ImageView)vi.findViewById(R.id.iv_zutat_picture);
-	        TextView tv_zutat_einheit =(TextView)vi.findViewById(R.id.tv_zutat_einheit);
-	        tv_zutat_einheit.setTypeface(font);
-	        TextView tv_zutat_menge =(TextView)vi.findViewById(R.id.tv_zutat_menge);
-	        tv_zutat_menge.setTypeface(font);
-	        TextView tv_zutat_name =(TextView)vi.findViewById(R.id.tv_zutat_name);
+	        ImageView iv_zutat_picture =(ImageView)vi.findViewById(R.id.iv_mein_schrank_liste_icon);
+	        TextView tv_zutat_einheit =(TextView)vi.findViewById(R.id.tv_mein_schrank_liste_einheit);
+	        TextView tv_zutat_menge =(TextView)vi.findViewById(R.id.tv_mein_schrank_liste_menge);
+	        TextView tv_zutat_name =(TextView)vi.findViewById(R.id.tv_mein_schrank_liste_name);
+	        
+	        tv_zutat_einheit.setTypeface(font);	        
+	        tv_zutat_menge.setTypeface(font);	        
 	        tv_zutat_name.setTypeface(font_bold);
 	        
 	        tv_zutat_name.setText(entries.get(position).getName());

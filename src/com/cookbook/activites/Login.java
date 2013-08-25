@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class Login extends Activity {
 	private TextView tv_login_benutzer, tv_login_passwort;
 	private Button bt_login_login, bt_login_register;
 	private EditText ed_login_benutzer, ed_login_passwort;
+	private ProgressBar pb_login;
 	
 	private Typeface font, font_bold;
 	private ConnectionDetector cd;
@@ -44,6 +46,7 @@ public class Login extends Activity {
 		onClickListener();		
 	}
 	
+	//Setzt Fonts
 	private void setFonts() {
 		font_bold = Typeface.createFromAsset(getAssets(), "fonts/font_bold.ttf");
 		font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
@@ -55,6 +58,7 @@ public class Login extends Activity {
 		ed_login_passwort.setTypeface(font);	
 	}
 	
+	//Wenn eingeloggt, wird User direkt weitergeleitet
 	private void currentUser() {
 		ParseUser currentUser = ParseUser.getCurrentUser();
 		if (currentUser != null) {
@@ -65,23 +69,24 @@ public class Login extends Activity {
 		}		
 	}
 	
+	//KlickListener von "Login" und "Registrierung"	
 	private void onClickListener() {
+		//"Login"
 		bt_login_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				//Überprüft auf Internetverbindung
 				isInternetPresent = cd.isConnectingToInternet();
                 if (isInternetPresent) {
+                	pb_login.setVisibility(View.VISIBLE);
                 	loginParse();
                 } else {
-                	Context context = getApplicationContext();
-					CharSequence text = "Keine Internetverbindung!";
-					int duration = Toast.LENGTH_LONG;
-
-					Toast toast = Toast.makeText(context, text, duration);
+                	Toast toast = Toast.makeText(getApplicationContext(), "Keine Internetverbindung!", Toast.LENGTH_LONG);
 					toast.show();
                 }
 			}
 		});
+		//"Registrierung"
 		bt_login_register.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -90,17 +95,14 @@ public class Login extends Activity {
                 	Intent i = new Intent(Login.this,Register.class);
     				startActivity(i);
                 } else {
-                	Context context = getApplicationContext();
-					CharSequence text = "Keine Internetverbindung!";
-					int duration = Toast.LENGTH_LONG;
-
-					Toast toast = Toast.makeText(context, text, duration);
+                	Toast toast = Toast.makeText(getApplicationContext(), "Keine Internetverbindung!", Toast.LENGTH_LONG);
 					toast.show();
                 }
 			}
 		});
 	}
 
+	//Loggt den User auf parse.com ein
 	private void loginParse() {
 		ParseUser.logInInBackground(ed_login_benutzer.getText().toString(), ed_login_passwort.getText().toString(), new LogInCallback() {
 			  public void done(ParseUser user, ParseException e) {
@@ -108,17 +110,15 @@ public class Login extends Activity {
 			    	Intent i = new Intent(Login.this,Main.class);
 					startActivity(i);
 			    } else {
-			    	Context context = getApplicationContext();
-					CharSequence text = "Login fehlgeschlagen!";
-					int duration = Toast.LENGTH_LONG;
-
-					Toast toast = Toast.makeText(context, text, duration);
+			    	pb_login.setVisibility(View.INVISIBLE);
+			    	Toast toast = Toast.makeText(getApplicationContext(), "Login fehlgeschlagen!", Toast.LENGTH_SHORT);
 					toast.show();
 			    }
 			}
 		});	
 	}
 
+	//Initalisiert Parse
 	private void initParse() {
 		Parse.initialize(this, "PXJakVYimXSoEUbQvyiNRIB3LzCbP0FEqFOM7NZD", "ms0stwKSjkAcbhuBFs3LOt0Qmjt50UZ3buElHYGm");
 		ParseAnalytics.trackAppOpened(getIntent());	
@@ -132,6 +132,9 @@ public class Login extends Activity {
 		bt_login_register= (Button) findViewById (R.id.bt_login_register);
 		ed_login_benutzer= (EditText) findViewById (R.id.ed_login_benutzer);
 		ed_login_passwort= (EditText) findViewById (R.id.ed_login_passwort);
+		pb_login = (ProgressBar) findViewById (R.id.pb_login);
+		pb_login.setVisibility(View.INVISIBLE);
+		pb_login.setProgress(5);
 		cd = new ConnectionDetector(getApplicationContext());		
 	}
 

@@ -18,7 +18,7 @@
             android1:gravity="bottom" >
 
             <TextView
-                android1:id="@+id/tv_zutat_name"
+                android1:id="@+id/tv_neue_zutat_header"
                 android1:layout_width="wrap_content"
                 android1:layout_height="wrap_content"
                 android1:layout_centerHorizontal="true"
@@ -36,7 +36,7 @@
             android1:layout_gravity="center" >
 
             <ImageView
-                android1:id="@+id/iv_zutat_picture"
+                android1:id="@+id/iv_neue_zutat_icon"
                 android1:layout_width="200dp"
                 android1:layout_height="180dp"
                 android1:src="@drawable/icon" />
@@ -48,7 +48,7 @@
             android1:layout_gravity="center" >
 
             <AutoCompleteTextView
-                android1:id="@+id/zutat"
+                android1:id="@+id/ed_neue_zutat_name"
                 android1:layout_width="150dp"
                 android1:layout_height="wrap_content"
                 android1:layout_alignParentBottom="true"
@@ -61,7 +61,7 @@
                 android1:singleLine="true" />
 
             <Button
-                android1:id="@+id/scanButton"
+                android1:id="@+id/bt_neue_zutat_scan"
                 android1:layout_width="110dp"
                 android1:layout_height="20dp"
                 android1:layout_alignParentBottom="true"
@@ -79,16 +79,17 @@
             <RelativeLayout
                 android1:layout_width="match_parent"
                 android1:layout_height="match_parent"
-                android1:layout_alignBottom="@+id/spinner2"
-                android1:layout_toLeftOf="@+id/spinner2" >
+                android1:layout_alignBottom="@+id/sp_neue_zutat"
+                android1:layout_toLeftOf="@+id/sp_neue_zutat" >
 
                 <EditText
-                    android1:id="@+id/ed_neueZutat_Menge"
+                    android1:id="@+id/ed_neue_zutat_menge"
                     android1:layout_width="80dp"
                     android1:layout_height="wrap_content"
                     android1:layout_alignParentBottom="true"
                     android1:layout_alignParentRight="true"
-                    android1:hint="Menge" >
+                    android1:hint="Menge"
+                    android1:inputType="numberDecimal" >
 
                     <requestFocus />
                 </EditText>
@@ -96,7 +97,7 @@
             </RelativeLayout>
 
             <Spinner
-                android1:id="@+id/spinner2"
+                android1:id="@+id/sp_neue_zutat"
                 android1:layout_width="110dp"
                 android1:layout_height="wrap_content"
                 android1:layout_alignParentRight="true"
@@ -107,7 +108,7 @@
     </LinearLayout>
 
     <Button
-        android1:id="@+id/zutatHinzufuegenButton"
+        android1:id="@+id/bt_neue_zutat_save"
         android1:layout_width="match_parent"
         android1:layout_height="wrap_content"
         android1:layout_alignParentBottom="true"
@@ -115,7 +116,7 @@
         android1:text="Zutat hinzufügen" />
 
     <ProgressBar
-        android1:id="@+id/pb_neueZutat"
+        android1:id="@+id/pb_neue_zutat"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android1:layout_centerInParent="true" />

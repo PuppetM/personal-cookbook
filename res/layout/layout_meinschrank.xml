@@ -22,14 +22,14 @@
          android:orientation="horizontal">
 
          <Button
-             android1:id="@+id/bt_meinSchrank_neueZutat"
+             android1:id="@+id/bt_mein_schrank_neue_zutat"
              android1:layout_width="0dp"
              android1:layout_height="70dp"
              android1:layout_weight="1.00"
              android1:text="Zutat hinzufügen" />
 
          <Button
-             android1:id="@+id/neueDatenbank"
+             android1:id="@+id/bt_mein_schrank_datenbank"
              android1:layout_width="0dip"
              android1:layout_height="70dp"
              android1:layout_weight="1.00"

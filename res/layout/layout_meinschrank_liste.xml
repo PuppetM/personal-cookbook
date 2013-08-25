@@ -6,17 +6,17 @@
     android1:gravity="left" >
 
     <TextView
-        android1:id="@+id/tv_zutat_name"
+        android1:id="@+id/tv_mein_schrank_liste_name"
         android1:layout_width="100dp"
         android1:layout_height="wrap_content"
         android1:layout_centerVertical="true"
-        android1:layout_toRightOf="@+id/iv_zutat_picture"
+        android1:layout_toRightOf="@+id/iv_mein_schrank_liste_icon"
         android1:text="Medium Text"
         android1:textAppearance="?android:attr/textAppearanceMedium"
         android1:textSize="16sp" />
 
     <ImageView
-        android1:id="@+id/iv_zutat_picture"
+        android1:id="@+id/iv_mein_schrank_liste_icon"
         android1:layout_width="100dp"
         android1:layout_height="50dp"
         android1:layout_alignParentLeft="true"
@@ -25,7 +25,7 @@
         android1:src="@drawable/no_pic_res" />
 
     <TextView
-        android1:id="@+id/tv_zutat_einheit"
+        android1:id="@+id/tv_mein_schrank_liste_einheit"
         android1:layout_width="40dp"
         android1:layout_height="wrap_content"
         android1:layout_alignParentRight="true"
@@ -35,12 +35,12 @@
         android1:textSize="13sp" />
 
     <TextView
-        android1:id="@+id/tv_zutat_menge"
+        android1:id="@+id/tv_mein_schrank_liste_menge"
         android1:layout_width="40dp"
         android1:layout_height="wrap_content"
         android1:layout_centerVertical="true"
         android1:layout_marginRight="5dp"
-        android1:layout_toLeftOf="@+id/tv_zutat_einheit"
+        android1:layout_toLeftOf="@+id/tv_mein_schrank_liste_einheit"
         android1:text="Medium Text"
         android1:textAppearance="?android:attr/textAppearanceMedium"
         android1:textSize="13sp" />

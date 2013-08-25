@@ -48,7 +48,6 @@ public class Main extends Activity {
 	private static final String[] Categories = new String[] {"Alle Kategorien", "Fleisch", "Vegetarisch", "Pasta", "Fisch", "Gefluegel", "Salate", "Auflauf", "Suppen und Eintoepfe",};
 	private Button toNeueZutat, toAlleRezepte, toMeinSchrank;
 	private List<ParseObject> todos;
-	private Spinner spinner;
 	private String selectedSpinner;
 	Boolean sync;
 	
@@ -79,8 +78,7 @@ public class Main extends Activity {
 		
 		clickListener();
 		aktuList("Alle Kategorien");
-		
-		spinnerListener();		
+			
 	}
 
 	private void setFonts() {
@@ -90,7 +88,6 @@ public class Main extends Activity {
 		toAlleRezepte.setTypeface(font_bold);
 		toMeinSchrank.setTypeface(font_bold);	
 		msp = new MainSpinnerAdapter(this, Categories, font_bold, R.layout.layout_main_spinner_style, R.id.tv_main_spinner_style);
-		spinner.setAdapter(msp);
 		
 	}
 
@@ -181,26 +178,7 @@ public class Main extends Activity {
 		sync = false;
 	}
 	
-	private void spinnerListener() {
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-        	public void  onItemSelected(AdapterView<?> parent, View view, int position, long id){
-			
-				selectedSpinner = (Categories[position]).toString();
-				Log.e("", selectedSpinner);
-				aktuList(selectedSpinner);
-				
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
-	}
-
+	
 	private void clickListener() {
 		toNeueZutat.setOnClickListener(new OnClickListener() {
 			@Override
@@ -257,7 +235,6 @@ public class Main extends Activity {
 		toNeueZutat = (Button) findViewById (R.id.toNeueZutat);
 		toAlleRezepte = (Button) findViewById (R.id.toAlleRezepte);
 		toMeinSchrank = (Button) findViewById (R.id.toMeinSchrank);
-		spinner = (Spinner) findViewById (R.id.sp_allerezepte_spinner);	
 		friends = new ArrayList<String>();
 		zutaten = new ArrayList<Zutat>();
 		sync = true;
